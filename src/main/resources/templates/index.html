@@ -1,14 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola Mundo</title>
-</head>
-<body>
-
-    <h1>index</h1>
-    
-</body>
+<html>
+  <head>
+    <title>Iniciar sesión con Google</title>
+    <meta name="google-signin-client_id" content="TU_ID_DE_CLIENTE">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      h1 {
+        font-size: 24px;
+        color: #5c5c5c;
+      }
+      .g-signin2 {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Iniciar sesión con Google</h1>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </div>
+    <script>
+      function onSignIn(googleUser) {
+        // Útil para enviar el token de inicio de sesión al backend
+        var id_token = googleUser.getAuthResponse().id_token;
+      }
+    </script>
+  </body>
 </html>
