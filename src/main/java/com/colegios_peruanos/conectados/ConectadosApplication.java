@@ -14,8 +14,8 @@ public class ConectadosApplication {
 	}
 
 	@GetMapping
-	String holaMundo(){
-		return "hola-mundo";
+	String Iniciar(){
+		return "index";
 	}
 
 }
