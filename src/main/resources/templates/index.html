@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Iniciar sesión con Google</title>
-    <meta name="google-signin-client_id" content="TU_ID_DE_CLIENTE">
+    <meta name="google-signin-client_id" content="708824211286-0lvq6m4cnor4vj3nd875c9tgd372selq.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <style>
       body {
@@ -24,21 +24,76 @@
       h1 {
         font-size: 36px;
       }
-      .g-signin2 {
-        margin-top: 50px;
+      #customBtn {
+        display: inline-block;
+        background-color: #4285f4;
+        color: white;
+        width: 240px;
+        border-radius: 5px;
+        white-space: nowrap;
+        box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+        transition: all .218s ease-in-out;
+      }
+      #customBtn:hover {
+        cursor:pointer;
+        background-color:#357ae8;
+      }
+      #customBtn span {
+        display:inline-block;
+        vertical-align:middle;
+        padding-left:42px;
+        padding-right:42px;
+        font-size:14px;
+        font-weight:bold;
+      }
+      img {
+        max-width: 80%;
+        border-radius: 50%;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
       }
     </style>
   </head>
   <body>
     <div class="container">
+      <img src="../static/logo_grande.jpg" alt="" />
       <h1>Iniciar sesión con Google</h1>
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      <div id="customBtn" class="customGPlusSignIn">
+          <span class="icon"></span>
+          <span class="buttonText">Iniciar sesión en Conecta2</span>
+      </div>
     </div>
     <script>
-      function onSignIn(googleUser) {
-        // Útil para enviar el token de inicio de sesión al backend
-        var id_token = googleUser.getAuthResponse().id_token;
+      function onSuccess(googleUser) {
+          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+          // Útil para enviar el token de inicio de sesión al backend
+          var id_token = googleUser.getAuthResponse().id_token;
+          console.log("ID Token: " + id_token);
+      }
+      function onFailure(error) {
+          console.log(error);
+      }
+      
+      function renderButton() {
+          gapi.signin2.render('my-signin2', {
+              'scope': 'profile email',
+              'width': 240,
+              'height': 50,
+              'longtitle': true,
+              'theme': 'dark',
+              'onsuccess': onSuccess,
+              'onfailure': onFailure
+          });
+          
+          document.getElementById('customBtn').addEventListener('click', function() {
+              gapi.auth2.getAuthInstance().signIn();
+          });
+          
+          gapi.load('auth2', function() {
+              gapi.auth2.init();
+          });
+          
       }
     </script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   </body>
 </html>
