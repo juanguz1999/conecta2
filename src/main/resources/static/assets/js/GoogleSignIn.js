@@ -31,6 +31,7 @@ window.handleCredentialResponse = function (response) {
       .then((userCredential) => {
         // El inicio de sesión fue exitoso
         const user = userCredential.user;
+        const profilePictureURL = user.photoURL;
         console.log("Inicio de sesión exitoso");
         // Redirigir al usuario a otra página
         window.location.href = 'vistaprincipal';
