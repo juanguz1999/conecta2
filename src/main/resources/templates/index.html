@@ -62,6 +62,7 @@
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
   import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+  import { signInWithCredential } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -87,14 +88,26 @@
 
     // Verificar si el inicio de sesión fue exitoso
     if (response.credential) {
-      console.log("Inicio de sesión exitoso");
-      // Redirigir al usuario a otra página
-      window.location.href = 'vistaprincipal';
+      const auth = getAuth();
+      const googleCredential = GoogleAuthProvider.credential(response.credential);
+      signInWithCredential(auth, googleCredential)
+        .then((userCredential) => {
+          // El inicio de sesión fue exitoso
+          const user = userCredential.user;
+          console.log("Inicio de sesión exitoso");
+          // Redirigir al usuario a otra página
+          window.location.href = 'prueba';
+        })
+        .catch((error) => {
+          // Ocurrió un error al iniciar sesión
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("Error al iniciar sesión");
+        });
     } else {
       console.log("Error al iniciar sesión");
     }
   }
-
 
 </script>
 

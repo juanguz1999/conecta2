@@ -14,5 +14,10 @@ public class controller {
 	String vistaprincipal(){
 		return "vistaprincipal";
 	}
+
+	@GetMapping("/prueba")
+	String prueba(){
+		return "prueba";
+	}
     
 }
