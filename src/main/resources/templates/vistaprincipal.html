@@ -53,22 +53,8 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Nav Item - Pages Collapse Menu -->
-        
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            
-
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-            <!-- Heading -->
-           
-
-            <!-- Nav Item - Pages Collapse Menu -->
-
-            <!-- Nav Item - Charts -->
-
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -258,7 +244,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Alan Huerta</span>
+                                <span id="user-name" class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre de Usuario</span>
                                 <img class="img-profile rounded-circle" src="">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -307,7 +293,7 @@
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                            
+
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
@@ -318,7 +304,7 @@
                         </div>
 
                         <!-- Pie Chart -->
-                        
+
                     </div>
 
                     <!-- Content Row -->
@@ -328,86 +314,119 @@
                         <div class="col-lg-6 mb-4">
 
                             <!-- Project Card Example -->
-                    
+
 
                             <!-- Color System -->
-                    
 
-                        <div class="col-lg-6 mb-4">
 
-                            <!-- Illustrations -->
-                        
+                            <div class="col-lg-6 mb-4">
 
-                            <!-- Approach -->
-                           
+                                <!-- Illustrations -->
 
+
+                                <!-- Approach -->
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Integrador 2 - GUZMAN, ROLDAR Y HUERTA</span>
                         </div>
                     </div>
-
-                </div>
-                <!-- /.container-fluid -->
+                </footer>
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Content Wrapper -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Integrador 2 - GUZMAN, ROLDAR Y HUERTA</span>
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
-    <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script th:src="@{/assets/vendor/jquery-easing/jquery.easing.min.js}"></script>
+        <!-- Core plugin JavaScript-->
+        <script th:src="@{/assets/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script th:src="@{/assets/js/sb-admin-2.js}"></script>
+        <!-- Custom scripts for all pages-->
+        <script th:src="@{/assets/js/sb-admin-2.js}"></script>
 
-    <!-- Page level plugins -->
-    <script th:src="@{/assets/vendor/chart.js/Chart.min.js}"></script>
+        <!-- Page level plugins -->
+        <script th:src="@{/assets/vendor/chart.js/Chart.min.js}"></script>
 
-    <!-- Page level custom scripts -->
-    <script th:src="@{/assets/vendor/chart.js/Chart.min.js}"></script>
-    <script th:src="@{/assets/js/demo/chart-pie-demo.js}" type="module"></script>
+        <!-- Page level custom scripts -->
+        <script th:src="@{/assets/vendor/chart.js/Chart.min.js}"></script>
+        <script th:src="@{/assets/js/demo/chart-pie-demo.js}" type="module"></script>
 
 </body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+    //Firebase
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyDX8Uc4Po4-rPKrzxh2JWkXxd16O7I1Eik",
+        authDomain: "conectadosp-6c872.firebaseapp.com",
+        projectId: "conectadosp-6c872",
+        storageBucket: "conectadosp-6c872.appspot.com",
+        messagingSenderId: "803161019115",
+        appId: "1:803161019115:web:cff53e5d1c2c5a285e24ae",
+        measurementId: "G-7VG5NV4KJK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // El usuario ha iniciado sesión
+            console.log(user);
+            document.querySelector("#user-name").textContent = user.displayName;
+            document.querySelector("#user-email").textContent = user.email;
+
+        } else {
+            // El usuario no ha iniciado sesión
+            document.querySelector("#user-name").textContent = "";
+        }
+    });
+</script>
 
 </html>

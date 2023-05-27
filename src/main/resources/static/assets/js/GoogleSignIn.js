@@ -33,7 +33,7 @@ window.handleCredentialResponse = function (response) {
         const user = userCredential.user;
         console.log("Inicio de sesión exitoso");
         // Redirigir al usuario a otra página
-        window.location.href = 'prueba';
+        window.location.href = 'vistaprincipal';
       })
       .catch((error) => {
         // Ocurrió un error al iniciar sesión
