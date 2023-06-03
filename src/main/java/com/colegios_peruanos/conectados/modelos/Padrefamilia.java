@@ -7,9 +7,8 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name= "usuario" )
-public class Usuario implements Serializable{
-    
+@Table(name = "padrefamilia")
+public class Padrefamilia implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +28,14 @@ public class Usuario implements Serializable{
     @Column(name = "FechaRegistro")
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
+    
     // @ManyToMany(mappedBy = "usuarioList")
     // private List<Padrefamilia> padrefamiliaList;
+   
     @JoinTable(name = "usuariorol", joinColumns = {
         @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "RolID", referencedColumnName = "ID")})
+    
     @ManyToMany
     private List<Rol> rolList;
     @OneToMany(mappedBy = "usuarioID")
@@ -44,7 +46,7 @@ public class Usuario implements Serializable{
     private List<Docente> docenteList;
     @OneToMany(mappedBy = "usuarioID")
     private List<Mantenimiento> mantenimientoList;
+
     // @OneToMany(mappedBy = "usuarioID")
     // private List<Padrefamilia> padrefamiliaList1;
-
 }
