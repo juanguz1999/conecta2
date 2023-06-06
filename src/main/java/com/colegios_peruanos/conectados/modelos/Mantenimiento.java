@@ -1,9 +1,10 @@
 package com.colegios_peruanos.conectados.modelos;
-
-
 import lombok.Data;
 import java.util.*;
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 @Entity
@@ -16,12 +17,13 @@ public class Mantenimiento implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID")
-    private Integer id;
+    private Integer id; 
     @Column(name = "Descripcion")
     private String descripcion;
     @Column(name = "TipoMantenimiento")
     private String tipoMantenimiento;
     @Column(name = "FechaHoraProgramada")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaHoraProgramada;
     @Column(name = "Estado")
