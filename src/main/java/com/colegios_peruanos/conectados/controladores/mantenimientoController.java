@@ -3,22 +3,12 @@ package com.colegios_peruanos.conectados.controladores;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.util.Date; 
 import com.colegios_peruanos.conectados.modelos.Mantenimiento;
 import com.colegios_peruanos.conectados.servicio.mantenimientoServicio;
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 @Controller
 public class mantenimientoController {
@@ -61,7 +51,7 @@ public class mantenimientoController {
     public String editarMantenimiento(Mantenimiento mantenimiento, Model model) {
 
         mantenimiento = mantServ.buscar(mantenimiento);
-        model.addAttribute("operacion", mantenimiento);
+        model.addAttribute("mantenimiento", mantenimiento);
 
         return "mantenimiento/editarMantenimiento";
     }

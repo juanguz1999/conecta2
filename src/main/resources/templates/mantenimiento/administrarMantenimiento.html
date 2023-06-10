@@ -97,7 +97,7 @@
                                             <td>[[${operacion.Observaciones}]]</td>
                                             <td>[[${operacion.usuarioID.nombre}]]</td>
                                             <td>
-                                                <a class="btn btn-sm btn-primary" th:href="@{/editarMantenimiento(id=${operacion.id})}">
+                                                <a class="btn btn-sm btn-primary" th:href="@{/editarMantenimiento/}+${operacion.id}">
                                                     <i class="bx bx-edit"></i> Editar
                                                 </a>
                                                 <a class="btn btn-sm btn-danger" th:href="@{/eliminarMantenimiento(id=${operacion.id})}">
