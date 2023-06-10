@@ -33,6 +33,25 @@ window.handleCredentialResponse = function (response) {
         const user = userCredential.user;
         const profilePictureURL = user.photoURL;
         console.log("Inicio de sesión exitoso");
+
+        // Enviar los datos del usuario a la aplicación de Spring
+        fetch('/guardarUsuario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: 0,
+            nombre: user.displayName,
+            apellido: user.displayName,
+            correoElectronico: user.email,
+            contrasena: userCredential,
+            tipousuario: 0,
+            fecharegistro: 12,
+            // Agrega más campos aquí
+          })
+        });
+
         // Redirigir al usuario a otra página
         window.location.href = 'vistaprincipal';
       })
