@@ -3,6 +3,9 @@ package com.colegios_peruanos.conectados.modelos;
 import lombok.Data;
 import java.util.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 @Entity
@@ -20,8 +23,10 @@ public class Curso implements Serializable {
     @Column(name = "NombreCurso")
     private String nombreCurso;
     @OneToMany(mappedBy = "cursoID")
+    @JsonIgnore
     private List<Calificacion> calificacionList;
     @OneToMany(mappedBy = "cursoID")
+    @JsonIgnore
     private List<Comunicado> comunicadoList;
     @JoinColumn(name = "SeccionID", referencedColumnName = "ID")
     @ManyToOne

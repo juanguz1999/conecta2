@@ -3,6 +3,10 @@ package com.colegios_peruanos.conectados.modelos;
 import lombok.Data;
 import java.util.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 @Entity
@@ -37,12 +41,16 @@ public class Usuario implements Serializable{
     @ManyToMany
     private List<Rol> rolList;
     @OneToMany(mappedBy = "usuarioID")
+    @JsonIgnore
     private List<Estudiante> estudianteList;
     @OneToMany(mappedBy = "estudianteID")
+    @JsonIgnore
     private List<Calificacion> calificacionList;
     @OneToMany(mappedBy = "usuarioID")
+    @JsonIgnore
     private List<Docente> docenteList;
     @OneToMany(mappedBy = "usuarioID")
+    @JsonIgnore
     private List<Mantenimiento> mantenimientoList;
     // @OneToMany(mappedBy = "usuarioID")
     // private List<Padrefamilia> padrefamiliaList1;

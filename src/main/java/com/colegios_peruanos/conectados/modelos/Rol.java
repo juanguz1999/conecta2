@@ -3,6 +3,10 @@ package com.colegios_peruanos.conectados.modelos;
 import lombok.Data;
 import java.util.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 
 @Entity
@@ -20,6 +24,7 @@ public class Rol implements Serializable {
     @Column(name = "NombreRol")
     private String nombreRol;
     @ManyToMany(mappedBy = "rolList")
+    @JsonIgnore
     private List<Usuario> usuarioList;
 
 }

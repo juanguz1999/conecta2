@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Registro de Estudiante</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom fonts for this template-->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome-free/css/all.min.css}">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" th:href="@{/assets/css/sb-admin-2.min.css}">
+
+    <!--Google-->
+    <script type="module" th:src="@{/assets/js/ControlUserGoogle.js}"></script>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:include="layout/slidebar :: slidebar"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- NavBar -->
+                <div th:include="layout/navbar :: navbar"></div>
+                <!--Fin NavBar-->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!--Contenido-->
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Registro de Estudiante</h1>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-8">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <!-- Card Body -->
+
+                                
+
+                                <div class="card-body">
+
+                                    <!--form-->
+
+                                    <button type="button" class="btn btn-primary col-lg-2" onclick="history.back()">Atras</button>
+                                    <br>
+
+                                    <form id="registrarEstudiante" th:action="@{/guardarEstudiante}" method="post">
+                                        <!-- <input type="hidden" name="id" id="id" th:field="*{id}"/>  -->
+                                        
+                                        <!-- <div class="form-group">
+                                            <br>
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apellido">Apellido</label>
+                                            <input type="text" class="form-control" id="apellido" th:field="*{apellido}">
+                                        </div> -->
+                                        
+                                        <select name="grado" id="gradoSelect">
+                                            <option th:each="grado : ${grados}" th:value="${grado.id}" th:text="${grado.nombreGrado}"></option>
+                                        </select>
+                                        <select name="seccion" id="seccionSelect">
+                                            <option value="">Selecciona un grado primero</option>
+                                        </select>
+
+                                        <!-- <div class="form-group">
+                                            <label for="usuarioID">Asignar Usuario</label>
+                                            <input type="text" class="form-control" id="usuarioID" th:field="*{usuarioID}">
+                                        </div> -->
+
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                    </form>
+
+                                    <script th:inline="javascript">
+                                        var seccionSelect = document.getElementById('seccionSelect');
+                                        document.getElementById('gradoSelect').addEventListener('change', function() {
+                                            var gradoId = this.value;
+                                    
+                                            // Realizar la solicitud fetch con el parámetro 'gradoId'
+                                            fetch('/obtenerSecciones?gradoId=' + gradoId)
+                                                .then(function(response) {
+                                                    if (response.ok) {
+                                                        return response.json();
+                                                    } else {
+                                                        throw new Error('Error en la respuesta de la solicitud AJAX');
+                                                    }
+                                                })
+                                                .then(function(secciones) {
+                                                    seccionSelect.innerHTML = '';
+                                                    secciones.forEach(function(seccion) {
+                                                        var option = document.createElement('option');
+                                                        option.value = seccion.id;
+                                                        option.textContent = seccion.nombreSeccion;
+                                                        seccionSelect.appendChild(option);
+                                                    });
+                                                })
+                                                .catch(function(error) {
+                                                    console.error(error);
+                                                });
+                                        });
+                                    </script>
+
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+
+
+
+                            <div class="col-lg-6 mb-4">
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <div th:include="layout/footer :: footer"></div>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+
+        <!-- Bootstrap core JavaScript-->
+        <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script th:src="@{/assets/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script th:src="@{/assets/js/sb-admin-2.js}"></script>
+
+        <!-- Page level plugins -->
+        <script th:src="@{/assets/vendor/chart.js/Chart.min.js}"></script>
+
+        <!-- Page level custom scripts -->
+        <script th:src="@{/assets/vendor/chart.js/Chart.min.js}"></script>
+        <script th:src="@{/assets/js/demo/chart-pie-demo.js}" type="module"></script>
+
+</body>
+
+</html>

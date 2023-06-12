@@ -3,6 +3,9 @@ package com.colegios_peruanos.conectados.modelos;
 import lombok.Data;
 import java.util.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 @Entity
@@ -35,6 +38,7 @@ public class Comunicado implements Serializable {
     @ManyToOne
     private Curso cursoID;
     @OneToMany(mappedBy = "comunicadoID")
+    @JsonIgnore
     private List<Comunicadopadre> comunicadopadreList;
 
 }

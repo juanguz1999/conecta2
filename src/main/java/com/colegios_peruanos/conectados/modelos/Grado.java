@@ -3,12 +3,15 @@ package com.colegios_peruanos.conectados.modelos;
 import lombok.Data;
 import java.util.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 
 @Entity
 @Data
 @Table(name = "grado")
-
 public class Grado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -20,13 +23,17 @@ public class Grado implements Serializable {
     @Column(name = "NombreGrado")
     private String nombreGrado;
     @OneToMany(mappedBy = "gradoID")
+    @JsonIgnore
     private List<Estudiante> estudianteList;
     @OneToMany(mappedBy = "gradoID")
+    @JsonIgnore
     private List<Comunicado> comunicadoList;
     @OneToMany(mappedBy = "gradoID")
+    @JsonIgnore
     private List<Seccion> seccionList;
     @OneToMany(mappedBy = "gradoID")
+    @JsonIgnore
     private List<Curso> cursoList;
-
+    
     
 }

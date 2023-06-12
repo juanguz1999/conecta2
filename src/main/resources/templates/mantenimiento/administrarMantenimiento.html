@@ -95,7 +95,7 @@
                                             <td th:text="${#dates.format(operacion.FechaHoraProgramada,'dd-MM-yyyy HH:mm')}"></td>
                                             <td>[[${operacion.Estado}]]</td>
                                             <td>[[${operacion.Observaciones}]]</td>
-                                            <td>[[${operacion.usuarioID.nombre}]]</td>
+                                            <td>[[${operacion.usuarioID.id}]]</td>
                                             <td>
                                                 <a class="btn btn-sm btn-primary" th:href="@{/editarMantenimiento/}+${operacion.id}">
                                                     <i class="bx bx-edit"></i> Editar
