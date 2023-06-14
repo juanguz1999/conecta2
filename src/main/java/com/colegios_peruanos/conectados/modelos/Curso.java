@@ -30,9 +30,11 @@ public class Curso implements Serializable {
     private List<Comunicado> comunicadoList;
     @JoinColumn(name = "SeccionID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Seccion seccionID;
     @JoinColumn(name = "GradoID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Grado gradoID;
 
     

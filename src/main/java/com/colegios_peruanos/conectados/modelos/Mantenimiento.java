@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 @Entity
@@ -33,6 +35,7 @@ public class Mantenimiento implements Serializable {
     private String observaciones;
     @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Usuario usuarioID;
     
 }

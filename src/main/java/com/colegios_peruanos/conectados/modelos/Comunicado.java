@@ -30,12 +30,15 @@ public class Comunicado implements Serializable {
     private Date fechaHora;
     @JoinColumn(name = "GradoID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Grado gradoID;
     @JoinColumn(name = "SeccionID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Seccion seccionID;
     @JoinColumn(name = "CursoID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Curso cursoID;
     @OneToMany(mappedBy = "comunicadoID")
     @JsonIgnore

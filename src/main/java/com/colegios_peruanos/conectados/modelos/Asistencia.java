@@ -29,6 +29,7 @@ public class Asistencia implements Serializable {
     private String observaciones;
     @JoinColumn(name = "EstudianteID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Estudiante estudianteID;
 
 

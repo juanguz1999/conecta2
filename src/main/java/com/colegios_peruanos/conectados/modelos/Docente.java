@@ -2,6 +2,9 @@ package com.colegios_peruanos.conectados.modelos;
 
 import lombok.Data;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 @Entity
@@ -24,6 +27,7 @@ public class Docente implements Serializable {
     private String otrosDatosDocente;
     @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Usuario usuarioID;
 
     

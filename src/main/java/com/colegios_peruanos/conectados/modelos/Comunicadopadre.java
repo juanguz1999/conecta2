@@ -2,6 +2,9 @@ package com.colegios_peruanos.conectados.modelos;
 
 import lombok.Data;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 @Entity
@@ -18,9 +21,11 @@ public class Comunicadopadre implements Serializable {
     private Integer id;
     @JoinColumn(name = "ComunicadoID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Comunicado comunicadoID;
     @JoinColumn(name = "PadreFamiliaID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Padrefamilia padreFamiliaID;
 
 }
