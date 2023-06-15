@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "estudiante")
-
 public class Estudiante implements Serializable {
 
     private static final long serialVersionUID = 1L;

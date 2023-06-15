@@ -6,15 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 
 import com.colegios_peruanos.conectados.modelos.Asistencia;
@@ -24,16 +21,12 @@ import com.colegios_peruanos.conectados.modelos.Seccion;
 import com.colegios_peruanos.conectados.servicio.asistenciaServicio;
 import com.colegios_peruanos.conectados.servicio.estudianteServicio;
 import com.colegios_peruanos.conectados.servicio.gradoServicio;
-import com.colegios_peruanos.conectados.servicio.seccionServicio;
 
 @Controller
 public class controladorEstudiante {
 
     @Autowired
     private gradoServicio gradoservicio;
-
-    @Autowired
-    private seccionServicio seccionservicio;
 
     @Autowired
     private estudianteServicio estudianteservicio;

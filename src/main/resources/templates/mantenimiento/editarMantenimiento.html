@@ -99,18 +99,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="usuarioID">Asignar Usuario</label>
-                                            <input type="text" class="form-control" id="usuarioID" th:field="*{usuarioID}">
+                                            <select class="form-control" id="usuarioID" name="usuarioID" th:field="*{usuarioID.id}">
+                                                <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre+' '+usuario.apellido}"></option>
+                                            </select>
                                         </div>
 
                                         <button type="submit" class="btn btn-success">Guardar</button>
                                     </form>
 
-
-
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart">
-                                        </canvas>
-                                    </div>
                                 </div>
                             </div>
                         </div>

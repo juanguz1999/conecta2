@@ -1,42 +1,48 @@
 package com.colegios_peruanos.conectados.servicio;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.colegios_peruanos.conectados.dao.usuarioDao;
 import com.colegios_peruanos.conectados.modelos.Usuario;
 
 @Component
 public class usuarioServicio implements IServicio<Usuario>{
 
-    
+    @Autowired
+    usuarioDao usuariodao;
+
     @Override
     public List<Usuario> listar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listar'");
+        return (List<Usuario>) usuariodao.findAll();
     }
 
     @Override
     public void guardar(Usuario item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'guardar'");
+        usuariodao.save(item);
     }
 
     @Override
     public void eliminar(Usuario item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+        usuariodao.delete(item);
     }
 
     @Override
     public Usuario buscar(Usuario item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscar'");
+        return usuariodao.findById(item.getId()).orElse(null);
     }
 
     @Override
     public Usuario buscar(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscar'");
+        return usuariodao.findById(id).orElse(null);
+    }
+
+    public List<Usuario> usuariosPorTipo(String tipoUsuario) {
+        return usuariodao.findAllByTipoUsuario(tipoUsuario);
     }
     
+
 
 }

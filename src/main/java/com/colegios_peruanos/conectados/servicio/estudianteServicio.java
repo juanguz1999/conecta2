@@ -4,8 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.colegios_peruanos.conectados.dao.estudianteDao;
-import com.colegios_peruanos.conectados.dao.gradoDao;
-import com.colegios_peruanos.conectados.dao.seccionDao;
 import com.colegios_peruanos.conectados.modelos.Estudiante;
 import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.modelos.Seccion;

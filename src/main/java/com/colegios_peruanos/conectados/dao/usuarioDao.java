@@ -1,8 +1,12 @@
 package com.colegios_peruanos.conectados.dao;
 
 import com.colegios_peruanos.conectados.modelos.Usuario;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface usuarioDao extends JpaRepository<Usuario, Integer> {
-    // Agrega métodos personalizados para acceder a la tabla usuario aquí
+
+    List<Usuario> findAllByTipoUsuario(String tipoUsuario);
 }

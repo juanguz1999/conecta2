@@ -76,7 +76,7 @@
                                         <thead>
                                           <tr>
                                             <th scope="col" >Nº</th>
-                                            <th scope="col" >ID</th>
+                                            <th scope="col" >Ticket</th>
                                             <th scope="col" >Descripcion</th>
                                             <th scope="col" >TipoMantenimiento</th>
                                             <th scope="col" >FechaHoraProgramada</th>
@@ -95,7 +95,7 @@
                                             <td th:text="${#dates.format(operacion.FechaHoraProgramada,'dd-MM-yyyy HH:mm')}"></td>
                                             <td>[[${operacion.Estado}]]</td>
                                             <td>[[${operacion.Observaciones}]]</td>
-                                            <td>[[${operacion.usuarioID.id}]]</td>
+                                            <td>[[${operacion.usuarioID.nombre}]] [[${operacion.usuarioID.apellido}]]</td>
                                             <td>
                                                 <a class="btn btn-sm btn-primary" th:href="@{/editarMantenimiento/}+${operacion.id}">
                                                     <i class="bx bx-edit"></i> Editar
@@ -109,13 +109,6 @@
                                          
                                         </tbody>
                                       </table>
-
-
-
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart">
-                                        </canvas>
-                                    </div>
                                 </div>
                             </div>
                         </div>
