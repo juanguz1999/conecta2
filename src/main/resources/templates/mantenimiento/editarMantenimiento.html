@@ -53,7 +53,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Programación e historial de Mantenimiento</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Agregar y modificar Mantenimiento</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -61,54 +61,52 @@
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-12">
+                        <div class="col-xl-8 col-lg-8">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <!-- Card Body -->
 
-                                <a type="button" class="btn btn-primary col-lg-2" th:href="@{/agregarMantenimiento}">Agregar</a>
+                                
 
                                 <div class="card-body">
 
-                                    <!--table-->
+                                    <!--form-->
 
-                                    <table class="table table-striped">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col" >Nº</th>
-                                            <th scope="col" >Ticket</th>
-                                            <th scope="col" >Descripcion</th>
-                                            <th scope="col" >TipoMantenimiento</th>
-                                            <th scope="col" >FechaHoraProgramada</th>
-                                            <th scope="col" >Estado</th>
-                                            <th scope="col" >Observaciones</th>
-                                            <th scope="col" >Usuario programado</th>
-                                            <th scope="col" >Acciones</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr th:each="operacion, contador :${operaciones}">
-                                            <th scope="row">[[${contador.count}]]</th>
-                                            <td>[[${operacion.id}]]</td>
-                                            <td>[[${operacion.descripcion}]]</td>
-                                            <td>[[${operacion.TipoMantenimiento}]]</td>
-                                            <td th:text="${#dates.format(operacion.FechaHoraProgramada,'dd-MM-yyyy HH:mm')}"></td>
-                                            <td>[[${operacion.Estado}]]</td>
-                                            <td>[[${operacion.Observaciones}]]</td>
-                                            <td>[[${operacion.usuarioID.nombre}]] [[${operacion.usuarioID.apellido}]]</td>
-                                            <td>
-                                                <a class="btn btn-sm btn-primary" th:href="@{/editarMantenimiento/}+${operacion.id}">
-                                                    <i class="bx bx-edit"></i> Editar
-                                                </a>
-                                                <a class="btn btn-sm btn-danger" th:href="@{/eliminarMantenimiento(id=${operacion.id})}">
-                                                    <i class="bx bx-trash"></i> Eliminar
-                                                </a>
-                                            </td>
+                                    <button type="button" class="btn btn-primary col-lg-2" onclick="history.back()">Atras</button>
+                                    <br>
 
-                                          </tr>
-                                         
-                                        </tbody>
-                                      </table>
+                                    <form id="registrarMantenimiento" th:action="@{/guardarMantenimiento}" method="post" th:object="${mantenimiento}">
+                                        <input type="hidden" name="id" id="id" th:field="*{id}"/> 
+                                        <div class="form-group">
+                                            <br>
+                                            <label for="descripcion">Descripcion</label>
+                                            <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tipoMantenimiento">Tipo de Mantenimiento</label>
+                                            <input type="text" class="form-control" id="tipoMantenimiento" th:field="*{tipoMantenimiento}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fechaHoraProgramada">Fecha y Hora Programada</label>
+                                            <input type="datetime-local" class="form-control" id="fechaHoraProgramada" name="fechaHoraProgramada" th:field="*{fechaHoraProgramada}">
+                                        <div class="form-group">
+                                            <label for="estado">Estado</label>
+                                            <input type="text" class="form-control" id="estado" th:field="*{estado}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="observaciones">Observaciones</label>
+                                            <input type="text" class="form-control" id="observaciones" th:field="*{observaciones}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="usuarioID">Asignar Usuario</label>
+                                            <select class="form-control" id="usuarioID" name="usuarioID" th:field="*{usuarioID.id}">
+                                                <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre+' '+usuario.apellido}"></option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>

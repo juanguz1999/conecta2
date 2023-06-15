@@ -1,6 +1,9 @@
 package com.colegios_peruanos.conectados.modelos;
 import lombok.Data;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.io.Serializable;
 
@@ -20,9 +23,11 @@ public class Calificacion implements Serializable {
     private BigDecimal valorCalificacion;
     @JoinColumn(name = "EstudianteID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Usuario estudianteID;
     @JoinColumn(name = "CursoID", referencedColumnName = "ID")
     @ManyToOne
+    @JsonIgnore
     private Curso cursoID;
 
     

@@ -10,8 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mantenimiento</title>
-
+    <title>Registro de Estudiante</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/assets/js/registroAsistencia.js}"></script>
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
     <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome-free/css/all.min.css}">
@@ -27,7 +28,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="mostrarFechaActual()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -53,7 +54,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Programación e historial de Mantenimiento</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Registro de Estudiante</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -66,49 +67,50 @@
                                 <!-- Card Header - Dropdown -->
                                 <!-- Card Body -->
 
-                                <a type="button" class="btn btn-primary col-lg-2" th:href="@{/agregarMantenimiento}">Agregar</a>
-
+                                <button type="button" class="btn btn-primary col-lg-2"
+                                        onclick="history.back()">Atras</button>
+                                <br>
+                                <div><h5>La fecha de registro es: <span id="fecha" th:text="${fechaActual}"></span></h5></div>
                                 <div class="card-body">
 
-                                    <!--table-->
+                                    <!--form-->
 
-                                    <table class="table table-striped">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col" >Nº</th>
-                                            <th scope="col" >Ticket</th>
-                                            <th scope="col" >Descripcion</th>
-                                            <th scope="col" >TipoMantenimiento</th>
-                                            <th scope="col" >FechaHoraProgramada</th>
-                                            <th scope="col" >Estado</th>
-                                            <th scope="col" >Observaciones</th>
-                                            <th scope="col" >Usuario programado</th>
-                                            <th scope="col" >Acciones</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr th:each="operacion, contador :${operaciones}">
-                                            <th scope="row">[[${contador.count}]]</th>
-                                            <td>[[${operacion.id}]]</td>
-                                            <td>[[${operacion.descripcion}]]</td>
-                                            <td>[[${operacion.TipoMantenimiento}]]</td>
-                                            <td th:text="${#dates.format(operacion.FechaHoraProgramada,'dd-MM-yyyy HH:mm')}"></td>
-                                            <td>[[${operacion.Estado}]]</td>
-                                            <td>[[${operacion.Observaciones}]]</td>
-                                            <td>[[${operacion.usuarioID.nombre}]] [[${operacion.usuarioID.apellido}]]</td>
-                                            <td>
-                                                <a class="btn btn-sm btn-primary" th:href="@{/editarMantenimiento/}+${operacion.id}">
-                                                    <i class="bx bx-edit"></i> Editar
-                                                </a>
-                                                <a class="btn btn-sm btn-danger" th:href="@{/eliminarMantenimiento(id=${operacion.id})}">
-                                                    <i class="bx bx-trash"></i> Eliminar
-                                                </a>
-                                            </td>
+                                    <select name="grado" id="gradoSelect" onchange="actualizarSecciones()">
+                                        <option value="">Selecciona el grado</option>
+                                        <option th:each="grado : ${grados}" th:value="${grado.id}"
+                                            th:text="${grado.nombreGrado}"></option>
+                                    </select>
+                                    <select name="seccion" id="seccionSelect">
+                                        <option value="">Selecciona un grado primero</option>
+                                    </select>
+                                    
+                                    <button type="button" class="btn btn-primary col-lg-2" id="btnListar" onclick="asistenciaEstudiantes()">Listar</button>
+                                    <br>
 
-                                          </tr>
-                                         
-                                        </tbody>
-                                      </table>
+                                        <table class="table table-striped" >
+                                            <thead>
+                                              <tr>
+                                                <th scope="col" >Nº</th>
+                                                <th scope="col" >Codigo</th>
+                                                <th scope="col" >Nombre</th>
+                                                <th scope="col" >Apellido</th>
+                                                <th scope="col" >Asistencia</th>
+                                                <th scope="col" >Observación (De ser necesario)</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="tablaEstudiantes">
+                                                <!-- se creara dinamicamente -->
+                                            </tbody>
+                                          </table>
+                                          <form th:action="@{/guardarAsiEstu}" method="post" onsubmit="guardarAsistencia()">
+                                            <button type="submit" class="btn btn-success">Guardar</button>
+                                          </form>
+                                        
+
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart">
+                                        </canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
