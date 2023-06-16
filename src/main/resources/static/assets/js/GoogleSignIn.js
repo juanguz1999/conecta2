@@ -1,5 +1,4 @@
 // Importe las funciones que necesita de los SDK
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
@@ -34,26 +33,40 @@ window.handleCredentialResponse = function (response) {
         const profilePictureURL = user.photoURL;
         console.log("Inicio de sesión exitoso");
 
-        // Enviar los datos del usuario a la aplicación de Spring
-        fetch('/guardarUsuario', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: 0,
-            nombre: user.displayName,
-            apellido: user.displayName,
-            correoElectronico: user.email,
-            contrasena: userCredential,
-            tipousuario: 0,
-            fecharegistro: 12,
-            // Agrega más campos aquí
-          })
-        });
+        // Verificar el dominio del correo electrónico
+        const email = user.email;
+        const emailDomain = email.split('@')[1];
 
-        // Redirigir al usuario a otra página
-        window.location.href = 'vistaprincipal';
+        if (emailDomain === 'alincoln.edu.pe') {
+          // El dominio del correo electrónico es correcto
+          // Continúa con el proceso de inicio de sesión
+
+          // Enviar los datos del usuario a la aplicación de Spring
+          fetch('/guardarUsuario', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              id: 0,
+              nombre: user.displayName,
+              apellido: user.displayName,
+              correoElectronico: user.email,
+              contrasena: userCredential,
+              tipousuario: 0,
+              fecharegistro: 12,
+              // Agrega más campos aquí
+            })
+          });
+
+          // Redirigir al usuario a otra página
+          window.location.href = 'vistaprincipal';
+        } else {
+          // El dominio del correo electrónico no es correcto
+          // Cierra la sesión del usuario y muestra un mensaje de error
+          auth.signOut();
+          alert('El dominio del correo electrónico no es válido');
+        }
       })
       .catch((error) => {
         // Ocurrió un error al iniciar sesión

@@ -19,5 +19,10 @@ public class controller {
 	String prueba(){
 		return "prueba";
 	}
+
+	@GetMapping("/perfil")
+	String perfil(){
+		return "perfil";
+	}
     
 }
