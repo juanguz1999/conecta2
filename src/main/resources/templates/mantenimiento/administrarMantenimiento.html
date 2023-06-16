@@ -65,8 +65,18 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <!-- Card Body -->
+                                <div class="d-sm-flex align-items-center justify-content-around mb-4">
+                                    <button type="button" class="btn btn-primary col-lg-1" onclick="history.back()">Atras</button>
+                                    
+                                    <a type="button" class="btn btn-primary col-lg-1 flex-column"
+                                        th:href="@{/agregarMantenimiento}">Agregar</a>
 
-                                <a type="button" class="btn btn-primary col-lg-2" th:href="@{/agregarMantenimiento}">Agregar</a>
+                                    <a id="buttonexcel" class="btn btn-primary col-lg-1 flex-column"
+                                        th:href="@{${url}(format=xlsx)}">
+                                        <span class="bi bi-download">Reporte</span>
+                                    </a>
+                                </div>
+
 
                                 <div class="card-body">
 
@@ -74,41 +84,46 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                          <tr>
-                                            <th scope="col" >Nº</th>
-                                            <th scope="col" >Ticket</th>
-                                            <th scope="col" >Descripcion</th>
-                                            <th scope="col" >TipoMantenimiento</th>
-                                            <th scope="col" >FechaHoraProgramada</th>
-                                            <th scope="col" >Estado</th>
-                                            <th scope="col" >Observaciones</th>
-                                            <th scope="col" >Usuario programado</th>
-                                            <th scope="col" >Acciones</th>
-                                          </tr>
+                                            <tr>
+                                                <th scope="col">Nº</th>
+                                                <th scope="col">Ticket</th>
+                                                <th scope="col">Descripcion</th>
+                                                <th scope="col">TipoMantenimiento</th>
+                                                <th scope="col">FechaHoraProgramada</th>
+                                                <th scope="col">Estado</th>
+                                                <th scope="col">Observaciones</th>
+                                                <th scope="col">Usuario programado</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                          <tr th:each="operacion, contador :${operaciones}">
-                                            <th scope="row">[[${contador.count}]]</th>
-                                            <td>[[${operacion.id}]]</td>
-                                            <td>[[${operacion.descripcion}]]</td>
-                                            <td>[[${operacion.TipoMantenimiento}]]</td>
-                                            <td th:text="${#dates.format(operacion.FechaHoraProgramada,'dd-MM-yyyy HH:mm')}"></td>
-                                            <td>[[${operacion.Estado}]]</td>
-                                            <td>[[${operacion.Observaciones}]]</td>
-                                            <td>[[${operacion.usuarioID.nombre}]] [[${operacion.usuarioID.apellido}]]</td>
-                                            <td>
-                                                <a class="btn btn-sm btn-primary" th:href="@{/editarMantenimiento/}+${operacion.id}">
-                                                    <i class="bx bx-edit"></i> Editar
-                                                </a>
-                                                <a class="btn btn-sm btn-danger" th:href="@{/eliminarMantenimiento(id=${operacion.id})}">
-                                                    <i class="bx bx-trash"></i> Eliminar
-                                                </a>
-                                            </td>
+                                            <tr th:each="operacion, contador :${operaciones}">
+                                                <th scope="row">[[${contador.count}]]</th>
+                                                <td>[[${operacion.id}]]</td>
+                                                <td>[[${operacion.descripcion}]]</td>
+                                                <td>[[${operacion.TipoMantenimiento}]]</td>
+                                                <td
+                                                    th:text="${#dates.format(operacion.FechaHoraProgramada,'dd-MM-yyyy HH:mm')}">
+                                                </td>
+                                                <td>[[${operacion.Estado}]]</td>
+                                                <td>[[${operacion.Observaciones}]]</td>
+                                                <td>[[${operacion.usuarioID.nombre}]]
+                                                    [[${operacion.usuarioID.apellido}]]</td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-primary"
+                                                        th:href="@{/editarMantenimiento/}+${operacion.id}">
+                                                        <i class="bx bx-edit"></i> Editar
+                                                    </a>
+                                                    <a class="btn btn-sm btn-danger"
+                                                        th:href="@{/eliminarMantenimiento(id=${operacion.id})}">
+                                                        <i class="bx bx-trash"></i> Eliminar
+                                                    </a>
+                                                </td>
 
-                                          </tr>
-                                         
+                                            </tr>
+
                                         </tbody>
-                                      </table>
+                                    </table>
                                 </div>
                             </div>
                         </div>
