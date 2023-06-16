@@ -15,6 +15,16 @@ public class controller {
 		return "vistaprincipal";
 	}
 
+	@GetMapping("/vistaprincipalalumno")
+	String vistaprincipalalumno(){
+		return "estudiante/vistaprincipalalumno";
+	}
+
+	@GetMapping("/vistaprincipaldocente")
+	String vistaprincipaldocente(){
+		return "docente/vistaprincipaldocente";
+	}
+
 	@GetMapping("/prueba")
 	String prueba(){
 		return "prueba";

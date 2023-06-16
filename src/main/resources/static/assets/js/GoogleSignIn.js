@@ -40,27 +40,76 @@ window.handleCredentialResponse = function (response) {
         if (emailDomain === 'alincoln.edu.pe') {
           // El dominio del correo electrónico es correcto
           // Continúa con el proceso de inicio de sesión
-
-          // Enviar los datos del usuario a la aplicación de Spring
-          fetch('/guardarUsuario', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              id: 0,
-              nombre: user.displayName,
-              apellido: user.displayName,
-              correoElectronico: user.email,
-              contrasena: userCredential,
-              tipousuario: 0,
-              fecharegistro: 12,
-              // Agrega más campos aquí
-            })
-          });
-
-          // Redirigir al usuario a otra página
-          window.location.href = 'vistaprincipal';
+          // Verificar el tipo de usuario
+          const userType = email.charAt(0);
+          //Usuario Alumno
+          if (userType === 'a') {
+            // Enviar los datos del usuario a la aplicación de Spring
+            fetch('/guardarUsuario', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                id: 0,
+                nombre: user.displayName,
+                apellido: user.displayName,
+                correoElectronico: user.email,
+                contrasena: userCredential,
+                tipousuario: 0,
+                fecharegistro: 12,
+                // Agrega más campos aquí
+              })
+            });
+            window.location.href = '/vistaprincipalalumno';
+          }
+          //Usuario Docente
+          else if (userType === 'c') {
+            // Enviar los datos del usuario a la aplicación de Spring
+            fetch('/guardarUsuario', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                id: 0,
+                nombre: user.displayName,
+                apellido: user.displayName,
+                correoElectronico: user.email,
+                contrasena: userCredential,
+                tipousuario: 0,
+                fecharegistro: 12,
+                // Agrega más campos aquí
+              })
+            });
+            window.location.href = '/vistaprincipaldocente';
+          }
+          //Usuario Administrativo
+          else if (userType === 'e') {
+            // Enviar los datos del usuario a la aplicación de Spring
+            fetch('/guardarUsuario', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                id: 0,
+                nombre: user.displayName,
+                apellido: user.displayName,
+                correoElectronico: user.email,
+                contrasena: userCredential,
+                tipousuario: 0,
+                fecharegistro: 12,
+                // Agrega más campos aquí
+              })
+            });
+            window.location.href = 'vistaprincipal';
+          }
+          //Usuario Desconocido
+          else {
+            auth.signOut();
+            alert('Tipo de usuario desconocido');
+          }
         } else {
           // El dominio del correo electrónico no es correcto
           // Cierra la sesión del usuario y muestra un mensaje de error
