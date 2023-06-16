@@ -23,7 +23,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/sb-admin-2.min.css}">
 
     <!--Google-->
-    <script type="module" th:src="@{/assets/js/ControlUserGooglePerfil.js}"></script>
+    <script type="module" th:src="@{/assets/GoogleSignIn/ControlUserGoogleAdmin.js}"></script>
 
 </head>
 
@@ -66,12 +66,6 @@
                                     <!-- No se envía un valor para el campo fechaRegistro -->
                                     <button type="submit" class="btn btn-primary">Guardar</button>
                                 </form>
-
-                                <script>
-                                    window.addEventListener('DOMContentLoaded', function () {
-                                        document.getElementById('correoElectronico').value = user.email;
-                                    });
-                                </script>
                                 <h4 class="card-header">Perfil</h4>
                                 <div class="card-body">
                                     <div class="row align-items-center">

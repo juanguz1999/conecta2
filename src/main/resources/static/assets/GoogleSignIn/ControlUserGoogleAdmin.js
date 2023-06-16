@@ -28,6 +28,7 @@ onAuthStateChanged(auth, (user) => {
         document.querySelector("#correoUsuario").textContent = user.email;
         document.querySelector("#numeroTelefono").textContent = user.phoneNumber;
         document.querySelector("#fotoPerfil").src = user.photoURL;
+        document.getElementById('correoElectronico').value = user.email;
 
 
     } else {

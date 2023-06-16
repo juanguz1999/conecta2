@@ -45,65 +45,15 @@ window.handleCredentialResponse = function (response) {
           //Usuario Alumno
           if (userType === 'a') {
             // Enviar los datos del usuario a la aplicación de Spring
-            fetch('/guardarUsuario', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                id: 0,
-                nombre: user.displayName,
-                apellido: user.displayName,
-                correoElectronico: user.email,
-                contrasena: userCredential,
-                tipousuario: 0,
-                fecharegistro: 12,
-                // Agrega más campos aquí
-              })
-            });
             window.location.href = '/vistaprincipalalumno';
           }
           //Usuario Docente
           else if (userType === 'c') {
-            // Enviar los datos del usuario a la aplicación de Spring
-            fetch('/guardarUsuario', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                id: 0,
-                nombre: user.displayName,
-                apellido: user.displayName,
-                correoElectronico: user.email,
-                contrasena: userCredential,
-                tipousuario: 0,
-                fecharegistro: 12,
-                // Agrega más campos aquí
-              })
-            });
             window.location.href = '/vistaprincipaldocente';
           }
           //Usuario Administrativo
           else if (userType === 'e') {
-            // Enviar los datos del usuario a la aplicación de Spring
-            fetch('/guardarUsuario', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                id: 0,
-                nombre: user.displayName,
-                apellido: user.displayName,
-                correoElectronico: user.email,
-                contrasena: userCredential,
-                tipousuario: 0,
-                fecharegistro: 12,
-                // Agrega más campos aquí
-              })
-            });
-            window.location.href = 'guardarUser';
+            window.location.href = '/guardarUser';
           }
           //Usuario Desconocido
           else {
