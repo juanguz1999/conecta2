@@ -39,6 +39,11 @@ public class controller {
 	String administrarPerfil(){
 		return "administrarPerfil";
 	}
+
+	@GetMapping("/guardarUser")
+	String guardarUser(){
+		return "guardarUser";
+	}
     
     
 }

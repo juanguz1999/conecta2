@@ -10,9 +10,9 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name= "usuario" )
-public class Usuario implements Serializable{
-    
+@Table(name = "usuario")
+public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +35,8 @@ public class Usuario implements Serializable{
     // @ManyToMany(mappedBy = "usuarioList")
     // private List<Padrefamilia> padrefamiliaList;
     @JoinTable(name = "usuariorol", joinColumns = {
-        @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "RolID", referencedColumnName = "ID")})
+            @JoinColumn(name = "UsuarioID", referencedColumnName = "ID") }, inverseJoinColumns = {
+                    @JoinColumn(name = "RolID", referencedColumnName = "ID") })
     @ManyToMany
     private List<Rol> rolList;
     @OneToMany(mappedBy = "usuarioID")

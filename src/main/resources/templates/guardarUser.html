@@ -1,0 +1,14 @@
+<form id="myForm" action="/guardarUsuario" method="POST">
+    <input type="hidden" name="nombre" value="Juan">
+    <input type="hidden" name="apellido" value="Guzman">
+    <input type="hidden" name="correoElectronico" value="asdasd">
+    <input type="hidden" name="contrasena" value="hola">
+    <input type="hidden" name="tipoUsuario" value="Administrador">
+    <!-- No se envía un valor para el campo fechaRegistro -->
+</form>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('myForm').submit();
+    });
+</script>

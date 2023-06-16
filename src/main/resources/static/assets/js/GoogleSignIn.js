@@ -103,7 +103,7 @@ window.handleCredentialResponse = function (response) {
                 // Agrega más campos aquí
               })
             });
-            window.location.href = 'vistaprincipal';
+            window.location.href = 'guardarUser';
           }
           //Usuario Desconocido
           else {
