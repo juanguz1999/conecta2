@@ -23,7 +23,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/sb-admin-2.min.css}">
 
     <!--Google-->
-    <script type="module" th:src="@{/assets/js/ControlUserGoogle.js}"></script>
+    <script type="module" th:src="@{/assets/js/ControlUserGooglePerfil.js}"></script>
 
 </head>
 
@@ -57,14 +57,32 @@
                     </div>
 
                     <!-- Content Row -->
-
                     <div class="row">
-
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-
+                                <h4 class="card-header"
+                                    style="font-family: 'Google Sans', Arial, sans-serif; font-weight: bold; font-size: 24px;">
+                                    Perfil</h4>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h1 id="nombreUsuario"
+                                                style="font-family: 'Google Sans', Arial, sans-serif; font-weight: bold; font-size: 36px;">
+                                                Nombre de Usuario</h1>
+                                            <h1 id="correoUsuario"
+                                                style="font-family: 'Google Sans', Arial, sans-serif; font-size: 24px;">
+                                                Correo de Usuario</h1>
+                                            <h1 id="numeroTelefono"
+                                                style="font-family: 'Google Sans', Arial, sans-serif; font-size: 24px;">
+                                                Número de Teléfono</h1>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img id="fotoPerfil" class="img-profile rounded-circle" src="">
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
@@ -73,25 +91,15 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Pie Chart -->
-
                     </div>
+
 
                     <!-- Content Row -->
                     <div class="row">
 
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
-                            <h1 id="NombreUs">Nombre Usuario</h1>
-
-
-
-
                             <div class="col-lg-6 mb-4">
-
-
-
                             </div>
                         </div>
 
