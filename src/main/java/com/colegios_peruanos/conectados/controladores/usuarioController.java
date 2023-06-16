@@ -32,7 +32,7 @@ public class usuarioController {
 
         usuarioDao.save(usuario);
 
-        return "/vistaprincipal";
+        return "redirect:/vistaprincipal";
     }
 
 }
