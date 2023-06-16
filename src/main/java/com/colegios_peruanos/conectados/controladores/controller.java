@@ -34,5 +34,11 @@ public class controller {
 	String perfil(){
 		return "perfil";
 	}
+
+	@GetMapping("/administrarPerfil")
+	String administrarPerfil(){
+		return "administrarPerfil";
+	}
+    
     
 }
