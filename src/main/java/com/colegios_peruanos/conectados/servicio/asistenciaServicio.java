@@ -42,11 +42,13 @@ public class asistenciaServicio implements IServicio<Asistencia>{
         return asistenciadao.findById(id).orElse(null);
     }
 
-    public Asistencia asistenciaporEstudianteId(Integer  estudianteId) {
+    public Asistencia asistenciaporEstudianteIdAndFecha(Integer  estudianteId) {
         Date fechaActual = new Date();
         return asistenciadao.findByEstudianteIDAndFechaAsistencia(estudianteservicio.buscar(estudianteId),fechaActual);
     }
 
-
+    public List <Asistencia> asistenciaporEstudianteId(Integer  estudianteId) {
+        return asistenciadao.findAllByEstudianteID(estudianteservicio.buscar(estudianteId));
+    }
     
 }

@@ -65,12 +65,21 @@ public class controladorEstudiante {
 
     @GetMapping("/obtenerAsistencia")
     @ResponseBody
-    public Asistencia obtenerAsistenciaporEstudianteId(@RequestParam("estudianteId") Integer estudianteId) {
+    public Asistencia obtenerAsistenciaporEstudianteIdyfecha(@RequestParam("estudianteId") Integer estudianteId) {
+
+        if (estudianteId != null) {
+            return asistenciaservicio.asistenciaporEstudianteIdAndFecha(estudianteId);
+        }
+        return new Asistencia();
+    }
+
+    @GetMapping("/obtenerAsistenciasEstudiante")
+    public List<Asistencia> obtenerAsistenciaporEstudiante(@RequestParam("estudianteId") Integer estudianteId) {
 
         if (estudianteId != null) {
             return asistenciaservicio.asistenciaporEstudianteId(estudianteId);
         }
-        return new Asistencia();
+        return new ArrayList<>();
     }
 
     @PostMapping("/guardarAsistencia")
@@ -83,7 +92,7 @@ public class controladorEstudiante {
             String estadoAsistencia = (String) mapAsistencia.get("estadoAsistencia");
             String observaciones = (String) mapAsistencia.get("observaciones");
 
-            Asistencia existente = asistenciaservicio.asistenciaporEstudianteId(Integer.parseInt(estudianteID));
+            Asistencia existente = asistenciaservicio.asistenciaporEstudianteIdAndFecha(Integer.parseInt(estudianteID));
             if (existente != null) {
                 // Actualizar la asistencia existente
                 existente.setEstadoAsistencia(estadoAsistencia);
@@ -107,5 +116,8 @@ public class controladorEstudiante {
 
         return "redirect:registrarEstudiante";
     }
+
+
+
 
 }
