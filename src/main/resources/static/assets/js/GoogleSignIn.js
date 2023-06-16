@@ -51,7 +51,7 @@ window.handleCredentialResponse = function (response) {
           else if (userType === 'c') {
             window.location.href = '/vistaprincipaldocente';
           }
-          //Usuario Administrativo
+          //Usuario Administrador
           else if (userType === 'e') {
             window.location.href = '/guardarUser';
           }
