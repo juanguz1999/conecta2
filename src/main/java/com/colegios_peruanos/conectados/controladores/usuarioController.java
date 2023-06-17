@@ -24,8 +24,23 @@ public class usuarioController {
     @Autowired
     private usuarioServicio usuarioservicio;
 
+    @PostMapping("/VerificarDatosGuardados")
+    public String VerificarDatosGuardados(HttpServletRequest request) {
+
+        String correoElectronico = request.getParameter("correoElectronico");
+
+        // Verificar que el valor de tipoUsuario sea válido
+        Usuario usuarioExistente = usuarioservicio.buscarPorCorreo(correoElectronico);
+        if (usuarioExistente == null) {
+            return "redirect:/guardarUser";
+        } else {
+            return "redirect:/vistaprincipal";
+        }
+    }
+
     @PostMapping("/guardarUsuario")
     public String guardarUsuario(HttpServletRequest request) {
+
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String correoElectronico = request.getParameter("correoElectronico");
@@ -100,10 +115,20 @@ public class usuarioController {
     }
 
     @GetMapping("/administrarPerfiles")
-    public String mostrarUsuarios(Model model) {
+    public String mostrarUsuarios(Model model, HttpServletRequest request) {
         List<Usuario> usuarios = usuarioservicio.listar();
         model.addAttribute("usuarios", usuarios);
+        model.addAttribute("url", getFullUrl(request));
         return "administrarPerfil";
+    }
+
+    public String getFullUrl(HttpServletRequest request) {
+
+        if (request.getQueryString() == null) {
+            return request.getRequestURI();
+        }
+
+        return request.getRequestURI() + "?" + request.getQueryString();
     }
 
     @GetMapping("/eliminarUsuario")

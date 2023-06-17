@@ -24,7 +24,7 @@ public class mantenimientoController {
     private usuarioServicio usuarioservicio;
 
     @GetMapping("/mantenimiento")
-    String ListaMantenimiento(Model model,HttpServletRequest request) {
+    String ListaMantenimiento(Model model, HttpServletRequest request) {
 
         List<Mantenimiento> operaciones = mantServ.listar();
         model.addAttribute("operaciones", operaciones);
@@ -87,6 +87,5 @@ public class mantenimientoController {
 
         return "redirect:mantenimiento";
     }
-
 
 }
