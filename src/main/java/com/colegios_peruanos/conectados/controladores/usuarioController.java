@@ -20,6 +20,9 @@ public class usuarioController {
     @Autowired
     private usuarioDao usuarioDao;
 
+    @Autowired
+    private usuarioServicio usuarioservicio;
+
     @PostMapping("/guardarUsuario")
     public String guardarUsuario(HttpServletRequest request) {
         String nombre = request.getParameter("nombre");
@@ -52,9 +55,10 @@ public class usuarioController {
         return "redirect:/vistaprincipal";
     }
 
-    @GetMapping("/usuarios")
+    
+    @GetMapping("/administrarPerfil")
     public String mostrarUsuarios(Model model) {
-        List<Usuario> usuarios = usuarioDao.findAll();
+        List<Usuario> usuarios = usuarioservicio.listar();
         model.addAttribute("usuarios", usuarios);
         return "administrarPerfil";
     }

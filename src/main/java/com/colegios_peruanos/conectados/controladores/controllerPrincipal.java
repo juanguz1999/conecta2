@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class controller {
+public class controllerPrincipal {
     @GetMapping("/")
 	String Index(){
 		return "index";
@@ -35,10 +35,10 @@ public class controller {
 		return "perfil";
 	}
 
-	@GetMapping("/administrarPerfil")
-	String administrarPerfil(){
-		return "administrarPerfil";
-	}
+	//@GetMapping("/administrarPerfil")
+	//String administrarPerfil(){
+	//	return "administrarPerfil";
+	//}
 
 	@GetMapping("/guardarUser")
 	String guardarUser(){
