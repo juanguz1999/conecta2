@@ -41,11 +41,9 @@ public class usuarioController {
                 usuarioDao.save(usuario);
             } else {
                 // El valor de tipoUsuario no es válido
-                // Aquí puedes manejar el error o enviar un mensaje de error al usuario
             }
         } else {
             // El valor de tipoUsuario está vacío o no está presente
-            // Aquí puedes manejar el error o enviar un mensaje de error al usuario
         }
 
         return "redirect:/vistaprincipal";
