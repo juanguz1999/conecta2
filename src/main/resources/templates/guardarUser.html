@@ -58,20 +58,39 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
 
-                                <h4 class="card-header">Perfil</h4>
+                                <h4 class="card-header">Guardar Perfil</h4>
                                 <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <form id="myForm" action="/guardarUsuario" method="POST">
-                                            <input type="text" id="nombre" name="nombre" value="">
-                                            <input type="hidden" id="apellido" name="apellido" value="">
-                                            <input type="text" id="correoElectronico" name="correoElectronico" value="">
-                                            <input type="hidden" id="contrasena" name="contrasena" value="">
-                                            <input type="text" id="tipoUsuario" name="tipoUsuario" value="">
-                                            <!-- No se envía un valor para el campo fechaRegistro -->
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                        </form>
-                                    </div>
+                                    <form id="myForm" action="/guardarUsuario" method="POST">
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                                placeholder="Ingrese su nombre" required>
+                                        </div>
+                                        <input type="hidden" id="apellido" name="apellido" value="">
+                                        <div class="form-group">
+                                            <label for="correoElectronico">Correo electrónico</label>
+                                            <input type="email" class="form-control" id="correoElectronico"
+                                                name="correoElectronico" placeholder="Ingrese su correo electrónico"
+                                                required>
+                                        </div>
+                                        <input type="hidden" id="contrasena" name="contrasena" value="">
+                                        <div class="form-group">
+                                            <label for="tipoUsuario">Tipo de usuario</label>
+                                            <select class="form-control" id="tipoUsuario" name="tipoUsuario" required>
+                                                <option value="">Seleccione un tipo de usuario</option>
+                                                <option value="docente">Docente</option>
+                                                <option value="estudiante">Estudiante</option>
+                                                <option value="padre">Padre</option>
+                                                <option value="administración">Administración</option>
+                                            </select>
+                                        </div>
+                                        <!-- No se envía un valor para el campo fechaRegistro -->
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </form>
                                 </div>
+
+
+
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
