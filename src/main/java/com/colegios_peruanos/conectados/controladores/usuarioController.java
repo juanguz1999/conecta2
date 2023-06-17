@@ -5,10 +5,13 @@ import com.colegios_peruanos.conectados.modelos.Usuario;
 import com.colegios_peruanos.conectados.servicio.usuarioServicio;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -47,6 +50,14 @@ public class usuarioController {
         }
 
         return "redirect:/vistaprincipal";
+    }
+
+    @GetMapping("/usuarios")
+    public String mostrarUsuarios(Model model) {
+        List<Usuario> usuarios = usuarioDao.findAll(); // Recuperar todos los usuarios de la base de datos
+        model.addAttribute("usuarios", usuarios); // Agregar la lista de usuarios al modelo
+
+        return "tabla-usuarios"; // Nombre de la plantilla (template) que mostrará la tabla
     }
 
 }
