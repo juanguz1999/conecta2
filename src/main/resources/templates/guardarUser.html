@@ -60,12 +60,14 @@
 
                                 <h4 class="card-header">Guardar Perfil</h4>
                                 <div class="card-body">
-                                    <form id="myForm" action="/guardarUsuario" method="POST">
+                                    <form id="myForm" action="/guardarUsuario" method="POST" class="needs-validation"
+                                        novalidate>
                                         <div class="form-group row">
                                             <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="nombre" name="nombre"
                                                     placeholder="Ingrese su nombre" required>
+                                                <div class="invalid-feedback">Por favor, ingrese su nombre.</div>
                                             </div>
                                         </div>
                                         <input type="hidden" id="apellido" name="apellido" value="">
@@ -76,6 +78,8 @@
                                                 <input type="email" class="form-control" id="correoElectronico"
                                                     name="correoElectronico" placeholder="Ingrese su correo electrónico"
                                                     required>
+                                                <div class="invalid-feedback">Por favor, ingrese un correo electrónico
+                                                    válido.</div>
                                             </div>
                                         </div>
                                         <input type="hidden" id="contrasena" name="contrasena" value="">
@@ -85,12 +89,15 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="tipoUsuario" name="tipoUsuario"
                                                     required>
-                                                    <option value="">Seleccione un tipo de usuario</option>
+                                                    <option value="" selected disabled>Seleccione un tipo de usuario
+                                                    </option>
                                                     <option value="docente">Docente</option>
                                                     <option value="estudiante">Estudiante</option>
                                                     <option value="padre">Padre</option>
                                                     <option value="administración">Administración</option>
                                                 </select>
+                                                <div class="invalid-feedback">Por favor, seleccione un tipo de usuario.
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- No se envía un valor para el campo fechaRegistro -->
@@ -99,35 +106,9 @@
                                         </div>
                                     </form>
                                 </div>
-
-
-
-
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-
-
-
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <div class="col-lg-6 mb-4">
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.container-fluid -->
-
                 </div>
                 <!-- End of Main Content -->
 
