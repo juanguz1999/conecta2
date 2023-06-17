@@ -6,6 +6,7 @@ import com.colegios_peruanos.conectados.servicio.usuarioServicio;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,7 +44,7 @@ public class usuarioController {
                 usuario.setCorreoElectronico(correoElectronico);
                 usuario.setContrasena(null);
                 usuario.setTipoUsuario(tipoUsuario);
-                usuario.setFechaRegistro(null);
+                usuario.setFechaRegistro(new Date());
 
                 usuarioDao.save(usuario);
             } else {
@@ -52,6 +53,49 @@ public class usuarioController {
         } else {
             // El valor de tipoUsuario está vacío o no está presente
         }
+        return "redirect:/vistaprincipal";
+    }
+
+    @PostMapping("/guardarUsuarioModificado")
+    public String guardarUsuarioModificado(HttpServletRequest request) {
+
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        String correoElectronico = request.getParameter("correoElectronico");
+        String tipoUsuario = request.getParameter("tipoUsuario");
+
+        // Verificar que el valor de tipoUsuario sea válido
+        Usuario usuarioExistente = usuarioservicio.buscarPorCorreo(correoElectronico);
+        if (usuarioExistente == null) {
+            if (tipoUsuario != null && !tipoUsuario.isEmpty()) {
+                tipoUsuario = tipoUsuario.toLowerCase();
+                if (tipoUsuario.equals("docente") || tipoUsuario.equals("estudiante") ||
+                        tipoUsuario.equals("padre") || tipoUsuario.equals("administración")) {
+                    // El valor de tipoUsuario es válido, crear el objeto Usuario
+                    Usuario usuario = new Usuario();
+                    usuario.setId(null);
+                    usuario.setNombre(nombre);
+                    usuario.setApellido(apellido);
+                    usuario.setCorreoElectronico(correoElectronico);
+                    usuario.setContrasena(null);
+                    usuario.setTipoUsuario(tipoUsuario);
+                    usuario.setFechaRegistro(new Date());
+
+                    usuarioDao.save(usuario);
+                } else {
+                    // El valor de tipoUsuario no es válido
+                }
+            } else {
+                // El valor de tipoUsuario está vacío o no está presente
+            }
+        } else {
+            usuarioExistente.setNombre(nombre);
+            usuarioExistente.setApellido(apellido);
+            usuarioExistente.setCorreoElectronico(correoElectronico);
+            usuarioExistente.setTipoUsuario(tipoUsuario);
+            usuarioservicio.guardar(usuarioExistente);
+        }
+
         return "redirect:/vistaprincipal";
     }
 
@@ -66,6 +110,13 @@ public class usuarioController {
     public String eliminarUsuario(Usuario usuario) {
         usuarioservicio.eliminar(usuario);
         return "redirect:/administrarPerfiles";
+    }
+
+    @GetMapping("/editarUsuario/{id}")
+    public String editarUsuario(Usuario usuario, Model model) {
+        usuario = usuarioservicio.buscar(usuario);
+        model.addAttribute("usuario", usuario);
+        return "editarUsuario";
     }
 
 }

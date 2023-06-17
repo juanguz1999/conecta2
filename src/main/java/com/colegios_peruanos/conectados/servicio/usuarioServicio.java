@@ -42,6 +42,10 @@ public class usuarioServicio implements IServicio<Usuario>{
     public List<Usuario> usuariosPorTipo(String tipoUsuario) {
         return usuariodao.findAllByTipoUsuario(tipoUsuario);
     }
+
+    public Usuario buscarPorCorreo(String correoElectronico) {
+        return usuariodao.findByCorreoElectronico(correoElectronico);
+    }
     
 
 

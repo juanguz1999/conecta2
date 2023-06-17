@@ -71,7 +71,7 @@
                                                     <th>Tipo de usuario</th>
                                                     <th>Fecha de registro</th>
                                                     <th>Acciones</th>
-                                                    <!-- Columna adicional para el botón de eliminar -->
+                                                    <!-- Columna adicional para los botones de acción -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -82,16 +82,22 @@
                                                     <td th:text="${usuario.apellido}"></td>
                                                     <td th:text="${usuario.correoElectronico}"></td>
                                                     <td th:text="${usuario.tipoUsuario}"></td>
-                                                    <td th:text="${usuario.fechaRegistro}"></td>
+                                                    <td th:text="${#dates.format(usuario.fechaRegistro,'dd-MM-yyyy')}">>
+                                                    </td>
                                                     <td>
                                                         <a class="btn btn-danger"
                                                             th:href="@{/eliminarUsuario(id=${usuario.id})}">
                                                             <i class="bx bx-trash"></i> Eliminar
                                                         </a>
+                                                        <a class="btn btn-primary"
+                                                            th:href="@{/editarUsuario/}+${usuario.id}">
+                                                            <i class="bx bx-edit"></i> Modificar
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+
 
                                     </div>
 

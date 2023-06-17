@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface usuarioDao extends JpaRepository<Usuario, Integer> {
     List<Usuario> findAllByTipoUsuario(String tipoUsuario);
+
+    Usuario findByCorreoElectronico(String correoElectronico);
 }
