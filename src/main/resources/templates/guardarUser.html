@@ -61,33 +61,45 @@
                                 <h4 class="card-header">Guardar Perfil</h4>
                                 <div class="card-body">
                                     <form id="myForm" action="/guardarUsuario" method="POST">
-                                        <div class="form-group">
-                                            <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre"
-                                                placeholder="Ingrese su nombre" required>
+                                        <div class="form-group row">
+                                            <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                                    placeholder="Ingrese su nombre" required>
+                                            </div>
                                         </div>
                                         <input type="hidden" id="apellido" name="apellido" value="">
-                                        <div class="form-group">
-                                            <label for="correoElectronico">Correo electrónico</label>
-                                            <input type="email" class="form-control" id="correoElectronico"
-                                                name="correoElectronico" placeholder="Ingrese su correo electrónico"
-                                                required>
+                                        <div class="form-group row">
+                                            <label for="correoElectronico" class="col-sm-3 col-form-label">Correo
+                                                electrónico</label>
+                                            <div class="col-sm-9">
+                                                <input type="email" class="form-control" id="correoElectronico"
+                                                    name="correoElectronico" placeholder="Ingrese su correo electrónico"
+                                                    required>
+                                            </div>
                                         </div>
                                         <input type="hidden" id="contrasena" name="contrasena" value="">
-                                        <div class="form-group">
-                                            <label for="tipoUsuario">Tipo de usuario</label>
-                                            <select class="form-control" id="tipoUsuario" name="tipoUsuario" required>
-                                                <option value="">Seleccione un tipo de usuario</option>
-                                                <option value="docente">Docente</option>
-                                                <option value="estudiante">Estudiante</option>
-                                                <option value="padre">Padre</option>
-                                                <option value="administración">Administración</option>
-                                            </select>
+                                        <div class="form-group row">
+                                            <label for="tipoUsuario" class="col-sm-3 col-form-label">Tipo de
+                                                usuario</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="tipoUsuario" name="tipoUsuario"
+                                                    required>
+                                                    <option value="">Seleccione un tipo de usuario</option>
+                                                    <option value="docente">Docente</option>
+                                                    <option value="estudiante">Estudiante</option>
+                                                    <option value="padre">Padre</option>
+                                                    <option value="administración">Administración</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <!-- No se envía un valor para el campo fechaRegistro -->
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                        </div>
                                     </form>
                                 </div>
+
 
 
 

@@ -21,6 +21,8 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         // El usuario ha iniciado sesión
         console.log(user);
+        document.querySelector("#user-name").textContent = user.displayName;
+        document.querySelector("#profile-picture").src = user.photoURL;
         document.getElementById('nombre').value = user.displayName;
         document.getElementById('correoElectronico').value = user.email;
         document.getElementById('tipoUsuario').value = 'administración';
