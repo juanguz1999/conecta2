@@ -26,6 +26,7 @@ public class usuarioController {
     @PostMapping("/guardarUsuario")
     public String guardarUsuario(HttpServletRequest request) {
         String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
         String correoElectronico = request.getParameter("correoElectronico");
         String tipoUsuario = request.getParameter("tipoUsuario");
 
@@ -38,7 +39,7 @@ public class usuarioController {
                 Usuario usuario = new Usuario();
                 usuario.setId(null);
                 usuario.setNombre(nombre);
-                usuario.setApellido(null);
+                usuario.setApellido(apellido);
                 usuario.setCorreoElectronico(correoElectronico);
                 usuario.setContrasena(null);
                 usuario.setTipoUsuario(tipoUsuario);
@@ -51,16 +52,20 @@ public class usuarioController {
         } else {
             // El valor de tipoUsuario está vacío o no está presente
         }
-
         return "redirect:/vistaprincipal";
     }
 
-    
-    @GetMapping("/administrarPerfil")
+    @GetMapping("/administrarPerfiles")
     public String mostrarUsuarios(Model model) {
         List<Usuario> usuarios = usuarioservicio.listar();
         model.addAttribute("usuarios", usuarios);
         return "administrarPerfil";
+    }
+
+    @GetMapping("/eliminarUsuario")
+    public String eliminarUsuario(Usuario usuario) {
+        usuarioservicio.eliminar(usuario);
+        return "redirect:/administrarPerfiles";
     }
 
 }

@@ -39,9 +39,9 @@ public class usuarioServicio implements IServicio<Usuario>{
         return usuariodao.findById(id).orElse(null);
     }
 
-    //public List<Usuario> usuariosPorTipo(String tipoUsuario) {
-    //    return usuariodao.findAllByTipoUsuario(tipoUsuario);
-    //}
+    public List<Usuario> usuariosPorTipo(String tipoUsuario) {
+        return usuariodao.findAllByTipoUsuario(tipoUsuario);
+    }
     
 
 

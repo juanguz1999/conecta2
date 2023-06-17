@@ -70,6 +70,8 @@
                                                     <th>Correo electrónico</th>
                                                     <th>Tipo de usuario</th>
                                                     <th>Fecha de registro</th>
+                                                    <th>Acciones</th>
+                                                    <!-- Columna adicional para el botón de eliminar -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -81,8 +83,13 @@
                                                     <td th:text="${usuario.correoElectronico}"></td>
                                                     <td th:text="${usuario.tipoUsuario}"></td>
                                                     <td th:text="${usuario.fechaRegistro}"></td>
+                                                    <td>
+                                                        <a class="btn btn-danger"
+                                                            th:href="@{/eliminarUsuario(id=${usuario.id})}">
+                                                            <i class="bx bx-trash"></i> Eliminar
+                                                        </a>
+                                                    </td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
 
