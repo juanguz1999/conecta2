@@ -54,10 +54,9 @@ public class usuarioController {
 
     @GetMapping("/usuarios")
     public String mostrarUsuarios(Model model) {
-        List<Usuario> usuarios = usuarioDao.findAll(); // Recuperar todos los usuarios de la base de datos
-        model.addAttribute("usuarios", usuarios); // Agregar la lista de usuarios al modelo
-
-        return "tabla-usuarios"; // Nombre de la plantilla (template) que mostrará la tabla
+        List<Usuario> usuarios = usuarioDao.findAll();
+        model.addAttribute("usuarios", usuarios);
+        return "administrarPerfil";
     }
 
 }
