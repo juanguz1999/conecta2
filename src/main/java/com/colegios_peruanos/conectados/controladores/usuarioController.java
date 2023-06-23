@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -24,13 +23,12 @@ public class usuarioController {
     @Autowired
     private usuarioServicio usuarioservicio;
 
-    @PostMapping("/VerificarDatosGuardados")
-    public String VerificarDatosGuardados(HttpServletRequest request) {
-
-        String correoElectronico = request.getParameter("correoElectronico");
+    @GetMapping("/d/{email}")
+    public String VerificarDatosGuardados(@PathVariable String email) {
 
         // Verificar que el valor de tipoUsuario sea válido
-        Usuario usuarioExistente = usuarioservicio.buscarPorCorreo(correoElectronico);
+        Usuario usuarioExistente = usuarioservicio.buscarPorCorreo(email);
+        System.out.println("--------------" + email);
         if (usuarioExistente == null) {
             return "redirect:/guardarUser";
         } else {

@@ -53,7 +53,7 @@ window.handleCredentialResponse = function (response) {
           }
           //Usuario Administrador
           else if (userType === 'e') {
-            window.location.href = '/verificaUser';
+            window.location.href = '/VerificarDatosGuardados/' + email;
           }
           //Usuario Desconocido
           else {
