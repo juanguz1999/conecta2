@@ -21,13 +21,8 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         // El usuario ha iniciado sesión
         console.log(user);
-        console.log(user.photoURL);
         document.querySelector("#user-name").textContent = user.displayName;
         document.querySelector("#profile-picture").src = user.photoURL;
-        document.querySelector("#nombreUsuario").textContent = user.displayName;
-        document.querySelector("#correoUsuario").textContent = user.email;
-        document.querySelector("#numeroTelefono").textContent = user.phoneNumber;
-        document.querySelector("#fotoPerfil").src = user.photoURL;
         document.getElementById('nombre').value = user.displayName;
         document.getElementById('correoElectronico').value = user.email;
         document.getElementById('tipoUsuario').value = 'estudiante';

@@ -40,14 +40,24 @@ public class controllerPrincipal {
 	// return "administrarPerfil";
 	// }
 
+	@GetMapping("/verificaUser")
+	String verificaUser() {
+		return "verificaUser";
+	}
+
 	@GetMapping("/guardarUser")
 	String guardarUser() {
 		return "guardarUser";
 	}
 
-	@GetMapping("/verificaUser")
-	String verificaUser() {
-		return "verificaUser";
+	@GetMapping("/docente/guardarUserDocente")
+	String guardarUserDocente() {
+		return "/docente/guardarUserDocente";
+	}
+
+	@GetMapping("/estudiante/guardarUserEstudiante")
+	String guardarUserEstudiante() {
+		return "/estudiante/guardarUserEstudiante";
 	}
 
 }

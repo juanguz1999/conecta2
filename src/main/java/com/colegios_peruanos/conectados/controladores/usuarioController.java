@@ -23,7 +23,7 @@ public class usuarioController {
     @Autowired
     private usuarioServicio usuarioservicio;
 
-    @GetMapping("/VerificarDatosGuardados/{email}")
+    @GetMapping("/VerificarDatosGuardadosAdmin/{email}")
     public String VerificarDatosGuardados(@PathVariable String email) {
 
         // Verificar que el valor de tipoUsuario sea válido
@@ -31,6 +31,32 @@ public class usuarioController {
         System.out.println("--------------" + email);
         if (usuarioExistente == null) {
             return "redirect:/guardarUser";
+        } else {
+            return "redirect:/vistaprincipal";
+        }
+    }
+
+    @GetMapping("/VerificarDatosGuardadosDocente/{email}")
+    public String VerificarDatosGuardadosDc(@PathVariable String email) {
+
+        // Verificar que el valor de tipoUsuario sea válido
+        Usuario usuarioExistente = usuarioservicio.buscarPorCorreo(email);
+        System.out.println("--------------" + email);
+        if (usuarioExistente == null) {
+            return "redirect:/docente/guardarUserDocente";
+        } else {
+            return "redirect:/vistaprincipal";
+        }
+    }
+
+    @GetMapping("/VerificarDatosGuardadosEstudiante/{email}")
+    public String VerificarDatosGuardadosEs(@PathVariable String email) {
+
+        // Verificar que el valor de tipoUsuario sea válido
+        Usuario usuarioExistente = usuarioservicio.buscarPorCorreo(email);
+        System.out.println("--------------" + email);
+        if (usuarioExistente == null) {
+            return "redirect:/estudiante/guardarUserEstudiante";
         } else {
             return "redirect:/vistaprincipal";
         }

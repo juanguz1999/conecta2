@@ -45,15 +45,19 @@ window.handleCredentialResponse = function (response) {
           //Usuario Alumno
           if (userType === 'a') {
             // Enviar los datos del usuario a la aplicación de Spring
-            window.location.href = '/vistaprincipalalumno';
+            window.location.href = '/VerificarDatosGuardadosEstudiante' + email;
           }
           //Usuario Docente
           else if (userType === 'c') {
-            window.location.href = '/vistaprincipaldocente';
+            window.location.href = '/VerificarDatosGuardadosDocente' + email;
+          }
+          //Usuario Padre
+          else if (userType === 'p') {
+            window.location.href = '/VerificarDatosGuardadosPadre' + email;
           }
           //Usuario Administrador
           else if (userType === 'e') {
-            window.location.href = '/VerificarDatosGuardados/' + email;
+            window.location.href = '/VerificarDatosGuardadosAdmin/' + email;
           }
           //Usuario Desconocido
           else {
