@@ -23,7 +23,7 @@ public class usuarioController {
     @Autowired
     private usuarioServicio usuarioservicio;
 
-    @GetMapping("/d/{email}")
+    @GetMapping("/VerificarDatosGuardados/{email}")
     public String VerificarDatosGuardados(@PathVariable String email) {
 
         // Verificar que el valor de tipoUsuario sea válido
