@@ -35,11 +35,6 @@ public class controllerPrincipal {
 		return "perfil";
 	}
 
-	// @GetMapping("/administrarPerfil")
-	// String administrarPerfil(){
-	// return "administrarPerfil";
-	// }
-
 	@GetMapping("/verificaUser")
 	String verificaUser() {
 		return "verificaUser";
