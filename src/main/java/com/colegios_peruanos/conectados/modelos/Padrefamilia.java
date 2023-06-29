@@ -12,48 +12,31 @@ import java.io.Serializable;
 @Data
 @Table(name = "padrefamilia")
 public class Padrefamilia implements Serializable{
+   
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "Nombre")
-    private String nombre;
-    @Column(name = "Apellido")
-    private String apellido;
-    @Column(name = "CorreoElectronico")
-    private String correoElectronico;
-    @Column(name = "Contrasena")
-    private String contrasena;
-    @Column(name = "TipoUsuario")
-    private String tipoUsuario;
-    @Column(name = "FechaRegistro")
-    @Temporal(TemporalType.DATE)
-    private Date fechaRegistro;
-    
-    // @ManyToMany(mappedBy = "usuarioList")
-    // private List<Padrefamilia> padrefamiliaList;
-   
-    @JoinTable(name = "usuariorol", joinColumns = {
-        @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "RolID", referencedColumnName = "ID")})
-    
+    @Column(name = "NombrePadre")
+    private String nombrePadre;
+    @Column(name = "ApellidoPadre")
+    private String apellidoPadre;
+    @Column(name = "OtrosDatosPadre")
+    private String otrosDatosPadre;
+    @JoinTable(name = "relacionpadreestudiante", joinColumns = {
+        @JoinColumn(name = "PadreFamiliaID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "EstudianteID", referencedColumnName = "ID")})
     @ManyToMany
-    private List<Rol> rolList;
-    @OneToMany(mappedBy = "usuarioID")
     @JsonIgnore
-    private List<Estudiante> estudianteList;
-    @OneToMany(mappedBy = "estudianteID")
+    private List<Usuario> usuarioList;
+    @OneToMany(mappedBy = "padreFamiliaID")
     @JsonIgnore
-    private List<Calificacion> calificacionList;
-    @OneToMany(mappedBy = "usuarioID")
+    private List<Comunicadopadre> comunicadopadreList;
+    @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")
+    @ManyToOne
     @JsonIgnore
-    private List<Docente> docenteList;
-    @OneToMany(mappedBy = "usuarioID")
-    @JsonIgnore
-    private List<Mantenimiento> mantenimientoList;
-
-    // @OneToMany(mappedBy = "usuarioID")
-    // private List<Padrefamilia> padrefamiliaList1;
+    private Usuario usuarioID;
+    
 }

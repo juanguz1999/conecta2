@@ -10,9 +10,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Registro de Estudiante</title>
+    <title>Registro de Notas por curso</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script th:src="@{/assets/js/registroAsistencia.js}"></script>
+    <script th:src="@{/assets/js/nivelAcademico.js}"></script>
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
     <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome-free/css/all.min.css}">
@@ -28,7 +29,7 @@
 
 </head>
 
-<body id="page-top" onload="mostrarFechaActual()">
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -70,16 +71,15 @@
                                 <button type="button" class="btn btn-primary col-lg-2"
                                     onclick="history.back()">Atras</button>
                                 <br>
-                                <div>
-                                    <h5>La fecha de registro es: <span id="fecha" th:text="${fechaActual}"></span></h5>
-                                </div>
+
                                 <div class="card-body">
 
                                     <!--form-->
                                     <div class="d-sm-flex align-items-center justify-content-around">
                                         <p class="font-weight-bold text-dark">Grado</p>
                                         <p class="font-weight-bold text-dark">Sección</p>
-                                        <p></p>
+                                        <p class="font-weight-bold text-dark">Curso</p>
+                                        <p>   </p>
                                     </div>
                                     <div class="d-sm-flex align-items-center justify-content-around mb-4">
                                         <select name="grado" id="gradoSelect" class="form-control col-lg-3"  onchange="actualizarSecciones()">
@@ -88,12 +88,16 @@
                                                 th:text="${grado.nombreGrado}"></option>
                                         </select>
 
-                                        <select name="seccion" id="seccionSelect" class="form-control col-lg-3">
+                                        <select name="seccion" id="seccionSelect" class="form-control col-lg-3" onchange="actualizarCursos()">
                                             <option value="">Selecciona un grado primero</option>
                                         </select>
 
-                                        <button type="button" class="btn btn-primary col-lg-2" id="btnListar"
-                                            onclick="asistenciaEstudiantes()">Listar</button>
+                                        <select name="curso" id="cursoSelect" class="form-control col-lg-3">
+                                            <option value="">Selecciona una sección primero</option>
+                                        </select>
+
+                                        <button type="button" class="btn btn-primary col-lg-2" id="btnListarAlumnos"
+                                            onclick="notasEstudiantes()">Listar</button>
                                         <br>
 
                                     </div>
@@ -105,15 +109,17 @@
                                                 <th scope="col">Codigo</th>
                                                 <th scope="col">Nombre</th>
                                                 <th scope="col">Apellido</th>
-                                                <th scope="col">Asistencia</th>
-                                                <th scope="col">Observación (De ser necesario)</th>
+                                                <th scope="col">PC 1</th>
+                                                <th scope="col">PC 2</th>
+                                                <th scope="col">PC 3</th>
+                                                <th scope="col">Final</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tablaEstudiantes">
                                             <!-- se creara dinamicamente -->
                                         </tbody>
                                     </table>
-                                    <form th:action="@{/guardarAsiEstu}" method="post" onsubmit="guardarAsistencia()">
+                                    <form th:action="@{/guardarNotas}" method="post" onsubmit="guardarNotas()">
                                         <button type="submit" class="btn btn-success">Guardar</button>
                                     </form>
 

@@ -15,10 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 
 import com.colegios_peruanos.conectados.modelos.Asistencia;
+import com.colegios_peruanos.conectados.modelos.Calificacion;
+import com.colegios_peruanos.conectados.modelos.Curso;
 import com.colegios_peruanos.conectados.modelos.Estudiante;
 import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.modelos.Seccion;
 import com.colegios_peruanos.conectados.servicio.asistenciaServicio;
+import com.colegios_peruanos.conectados.servicio.calificacionServicio;
+import com.colegios_peruanos.conectados.servicio.cursoServicio;
 import com.colegios_peruanos.conectados.servicio.estudianteServicio;
 import com.colegios_peruanos.conectados.servicio.gradoServicio;
 
@@ -34,12 +38,26 @@ public class controladorEstudiante {
     @Autowired
     private asistenciaServicio asistenciaservicio;
 
+    @Autowired
+    private cursoServicio cursoservicio;
+
+    @Autowired
+    private calificacionServicio calificacionservicio;
+
     @GetMapping("/registrarEstudiante")
     String registroEstudiante(Model model) {
 
         List<Grado> grados = gradoservicio.listar();
         model.addAttribute("grados", grados);
         return "docente/asistenciaEstudiante";
+    }
+
+    @GetMapping("/registrarNotas")
+    String registroNotasEstudiante(Model model) {
+
+        List<Grado> grados = gradoservicio.listar();
+        model.addAttribute("grados", grados);
+        return "docente/registroNotas";
     }
 
     @GetMapping("/obtenerSecciones")
@@ -52,6 +70,17 @@ public class controladorEstudiante {
         return new ArrayList<>();
     }
 
+    @GetMapping("/obtenerCursos")
+    @ResponseBody
+    public List<Curso> obtenerCursosPorGradoYSeccion(@RequestParam("gradoId") Integer gradoId,
+            @RequestParam("seccionId") Integer seccionId) {
+
+        if (gradoId != null && seccionId != null) {
+            return cursoservicio.buscarGradoSeccion(gradoId, seccionId);
+        }
+        return new ArrayList<>();
+    }
+
     @GetMapping("/obtenerEstudiantes")
     @ResponseBody
     public List<Estudiante> obtenerEstudiantesPorGradoYSeccion(@RequestParam("gradoId") Integer gradoId,
@@ -59,6 +88,17 @@ public class controladorEstudiante {
 
         if (gradoId != null && seccionId != null) {
             return estudianteservicio.buscarGradoSeccion(gradoId, seccionId);
+        }
+        return new ArrayList<>();
+    }
+
+    @GetMapping("/obtenerEstudiantesCurso")
+    @ResponseBody
+    public List<Estudiante> obtenerEstudiantesPorGradoYSeccionYcurso(@RequestParam("gradoId") Integer gradoId,
+            @RequestParam("seccionId") Integer seccionId,@RequestParam("cursoId") Integer cursoId) {
+
+        if (gradoId != null && seccionId != null && cursoId != null) {
+            return estudianteservicio.buscarEstudiantesCurso(gradoId,seccionId,cursoId);
         }
         return new ArrayList<>();
     }
@@ -117,7 +157,44 @@ public class controladorEstudiante {
         return "redirect:registrarEstudiante";
     }
 
+    @PostMapping("/guardarNotasEstudiante")
+    @ResponseBody
+    public String guardarNotasEstudiante(@RequestBody List<Map<String, Object>> mapAsistencias) {
+        
+        for (Map<String, Object> mapAsistencia : mapAsistencias) { 
 
+            String estudianteID = (String) mapAsistencia.get("estudianteID"); // Cambio a String
+            String PC1 = (String) mapAsistencia.get("PC1");
+            String PC2 = (String) mapAsistencia.get("PC2");
+            String PC3 = (String) mapAsistencia.get("PC3");
+            String Final = (String) mapAsistencia.get("Final");
+
+            List<Calificacion> existentes = calificacionservicio.calificacionEstudiante(Integer.parseInt(estudianteID));
+            if (existentes != null) {
+                // Actualizar la asistencia existente
+                existentes.setEstadoAsistencia(estadoAsistencia);
+                existentes.setObservaciones(observaciones);
+                calificacionservicio.guardar(existentes);
+            } else {
+                // Crear una nueva asistencia
+                Asistencia asistencia = new Asistencia();
+                asistencia.setEstadoAsistencia(estadoAsistencia);
+                asistencia.setObservaciones(observaciones);
+                asistencia.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+                calificacionservicio.guardar(asistencia);
+            }
+        }
+        return "Datos recibidos correctamente";
+    }
+
+
+
+
+    @PostMapping("/guardarNotas")
+    public String guardarNotas() {
+
+        return "redirect:registrarNotas";
+    }
 
 
 }

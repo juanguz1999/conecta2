@@ -7,12 +7,20 @@ import org.springframework.stereotype.Component;
 
 import com.colegios_peruanos.conectados.dao.cursoDao;
 import com.colegios_peruanos.conectados.modelos.Curso;
+import com.colegios_peruanos.conectados.modelos.Grado;
+import com.colegios_peruanos.conectados.modelos.Seccion;
 
 @Component
-public class cursoServicio implements IServicio<Curso>{
+public class cursoServicio implements IServicio<Curso> {
 
     @Autowired
     cursoDao cursodao;
+
+    @Autowired
+    gradoServicio gradoservicio;
+
+    @Autowired
+    seccionServicio seccionservicio;
 
     @Override
     public List<Curso> listar() {
@@ -38,5 +46,11 @@ public class cursoServicio implements IServicio<Curso>{
     public Curso buscar(Integer id) {
         return cursodao.findById(id).orElse(null);
     }
-    
+
+    public List<Curso> buscarGradoSeccion(Integer gradoId, Integer seccionId) {
+        Grado grado=gradoservicio.buscar(gradoId);
+        Seccion seccion=seccionservicio.buscar(seccionId);
+        return cursodao.findAllByGradoIDAndSeccionID(grado, seccion);
+    }
+
 }

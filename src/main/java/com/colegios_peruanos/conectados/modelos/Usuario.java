@@ -3,9 +3,7 @@ package com.colegios_peruanos.conectados.modelos;
 import lombok.Data;
 import java.util.*;
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 
 @Entity
@@ -32,8 +30,9 @@ public class Usuario implements Serializable{
     @Column(name = "FechaRegistro")
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
-    // @ManyToMany(mappedBy = "usuarioList")
-    // private List<Padrefamilia> padrefamiliaList;
+    @ManyToMany(mappedBy = "usuarioList")
+    @JsonIgnore
+    private List<Padrefamilia> padrefamiliaList;
     @JoinTable(name = "usuariorol", joinColumns = {
         @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "RolID", referencedColumnName = "ID")})
@@ -51,7 +50,8 @@ public class Usuario implements Serializable{
     @OneToMany(mappedBy = "usuarioID")
     @JsonIgnore
     private List<Mantenimiento> mantenimientoList;
-    // @OneToMany(mappedBy = "usuarioID")
-    // private List<Padrefamilia> padrefamiliaList1;
+    @OneToMany(mappedBy = "usuarioID")
+    @JsonIgnore
+    private List<Padrefamilia> padrefamiliaList1;
 
 }
