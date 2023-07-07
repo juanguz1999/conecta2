@@ -21,6 +21,15 @@ public class Curso implements Serializable {
     private Integer id;
     @Column(name = "NombreCurso")
     private String nombreCurso;
+    @ManyToMany(mappedBy = "cursoList")
+    @JsonIgnore
+    private List<Estudiante> estudianteList;
+    @JoinTable(name = "asignaciondocente", joinColumns = {
+        @JoinColumn(name = "CursoID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "docenteID", referencedColumnName = "ID")})
+    @ManyToMany
+    @JsonIgnore
+    private List<Docente> docenteList;
     @OneToMany(mappedBy = "cursoID")
     @JsonIgnore
     private List<Calificacion> calificacionList;
@@ -28,13 +37,12 @@ public class Curso implements Serializable {
     @JsonIgnore
     private List<Comunicado> comunicadoList;
     @JoinColumn(name = "SeccionID", referencedColumnName = "ID")
-    @ManyToOne
     @JsonIgnore
+    @ManyToOne
     private Seccion seccionID;
     @JoinColumn(name = "GradoID", referencedColumnName = "ID")
-    @ManyToOne
     @JsonIgnore
+    @ManyToOne
     private Grado gradoID;
-
     
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.colegios_peruanos.conectados.dao.estudianteDao;
+import com.colegios_peruanos.conectados.modelos.Curso;
 import com.colegios_peruanos.conectados.modelos.Estudiante;
 import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.modelos.Seccion;
@@ -19,6 +20,9 @@ public class estudianteServicio implements IServicio<Estudiante>{
 
     @Autowired
     seccionServicio seccionservicio;
+
+    @Autowired
+    cursoServicio cursoservicio;
 
     @Override
     public List<Estudiante> listar() {
@@ -53,6 +57,13 @@ public class estudianteServicio implements IServicio<Estudiante>{
         Grado grado=gradoservicio.buscar(gradoID);
         Seccion seccion=seccionservicio.buscar(seccionID);
         return estudiantedao.findAllByGradoIDAndSeccionID(grado, seccion);
+    }
+
+    public List<Estudiante> buscarEstudiantesCurso(Integer gradoId, Integer seccionId, Integer cursoId) {
+        Grado grado=gradoservicio.buscar(gradoId);
+        Seccion seccion=seccionservicio.buscar(seccionId);
+        Curso curso=cursoservicio.buscar(cursoId);
+        return estudiantedao.findAllByGradoSeccionCurso(grado,seccion,curso);
     }
     
 }

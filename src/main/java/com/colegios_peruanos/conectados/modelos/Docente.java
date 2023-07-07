@@ -6,6 +6,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,10 +25,12 @@ public class Docente implements Serializable {
     private String apellidoDocente;
     @Column(name = "OtrosDatosDocente")
     private String otrosDatosDocente;
+    @ManyToMany(mappedBy = "docenteList")
+    @JsonIgnore
+    private List<Curso> cursoList;
     @JoinColumn(name = "UsuarioID", referencedColumnName = "ID")
     @ManyToOne
     @JsonIgnore
     private Usuario usuarioID;
-
     
 }
