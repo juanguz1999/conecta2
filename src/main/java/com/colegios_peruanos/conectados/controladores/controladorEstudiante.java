@@ -169,20 +169,20 @@ public class controladorEstudiante {
             String PC3 = (String) mapAsistencia.get("PC3");
             String Final = (String) mapAsistencia.get("Final");
 
-            List<Calificacion> existentes = calificacionservicio.calificacionEstudiante(Integer.parseInt(estudianteID));
-            if (existentes != null) {
-                // Actualizar la asistencia existente
-                existentes.setEstadoAsistencia(estadoAsistencia);
-                existentes.setObservaciones(observaciones);
-                calificacionservicio.guardar(existentes);
-            } else {
-                // Crear una nueva asistencia
-                Asistencia asistencia = new Asistencia();
-                asistencia.setEstadoAsistencia(estadoAsistencia);
-                asistencia.setObservaciones(observaciones);
-                asistencia.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
-                calificacionservicio.guardar(asistencia);
-            }
+            // List<Calificacion> existentes = calificacionservicio.calificacionEstudiante(Integer.parseInt(estudianteID));
+            // if (existentes != null) {
+            //     // Actualizar la asistencia existente
+            //     existentes.setEstadoAsistencia(estadoAsistencia);
+            //     existentes.setObservaciones(observaciones);
+            //     calificacionservicio.guardar(existentes);
+            // } else {
+            //     // Crear una nueva asistencia
+            //     Asistencia asistencia = new Asistencia();
+            //     asistencia.setEstadoAsistencia(estadoAsistencia);
+            //     asistencia.setObservaciones(observaciones);
+            //     asistencia.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+            //     calificacionservicio.guardar(asistencia);
+            // }
         }
         return "Datos recibidos correctamente";
     }
