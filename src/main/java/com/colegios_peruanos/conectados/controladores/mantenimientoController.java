@@ -9,8 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.colegios_peruanos.conectados.modelos.Mantenimiento;
 import com.colegios_peruanos.conectados.modelos.Usuario;
+import com.colegios_peruanos.conectados.modelos.AsignacionDocente;
+import com.colegios_peruanos.conectados.servicio.asignacionDocenteServicio;
 import com.colegios_peruanos.conectados.servicio.mantenimientoServicio;
 import com.colegios_peruanos.conectados.servicio.usuarioServicio;
 
@@ -22,6 +26,9 @@ public class mantenimientoController {
 
     @Autowired
     private usuarioServicio usuarioservicio;
+
+    @Autowired
+    private asignacionDocenteServicio asignacionDocenteServicio;
 
     @GetMapping("/mantenimiento")
     String ListaMantenimiento(Model model, HttpServletRequest request) {
@@ -86,6 +93,20 @@ public class mantenimientoController {
         mantServ.eliminar(mantenimiento);
 
         return "redirect:mantenimiento";
+    }
+
+    @PostMapping("/guardarAsignacionDocente")
+    public String guardarAsignacionDocente(@RequestParam("docente") Integer docenteId,
+            @RequestParam("curso") Integer cursoId) {
+        // Crear una instancia de AsignacionDocente
+        AsignacionDocente asignacionDocente = new AsignacionDocente();
+        asignacionDocente.setDocenteID(docenteId);
+        asignacionDocente.setCursoID(cursoId);
+
+        // Guardar la asignacionDocente en la base de datos
+        asignacionDocenteServicio.guardar(asignacionDocente);
+
+        return "redirect:/vistaprincipal";
     }
 
 }
