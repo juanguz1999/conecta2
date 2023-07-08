@@ -2,7 +2,6 @@ package com.colegios_peruanos.conectados.util;
 
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
-import com.colegios_peruanos.conectados.modelos.Mantenimiento;
 import com.colegios_peruanos.conectados.modelos.Usuario;
 
 import org.apache.poi.ss.usermodel.Cell;

@@ -1,9 +1,11 @@
 package com.colegios_peruanos.conectados.servicio;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.colegios_peruanos.conectados.dao.estudianteDao;
+import com.colegios_peruanos.conectados.modelos.Calificacion;
 import com.colegios_peruanos.conectados.modelos.Curso;
 import com.colegios_peruanos.conectados.modelos.Estudiante;
 import com.colegios_peruanos.conectados.modelos.Grado;
@@ -23,6 +25,7 @@ public class estudianteServicio implements IServicio<Estudiante>{
 
     @Autowired
     cursoServicio cursoservicio;
+
 
     @Override
     public List<Estudiante> listar() {
@@ -64,6 +67,23 @@ public class estudianteServicio implements IServicio<Estudiante>{
         Seccion seccion=seccionservicio.buscar(seccionId);
         Curso curso=cursoservicio.buscar(cursoId);
         return estudiantedao.findAllByGradoSeccionCurso(grado,seccion,curso);
+    }
+
+    public List<Calificacion> calificacionesEstudiante(Integer cursoid, Integer estudianteid) {
+
+        Estudiante estudiante=estudiantedao.findById(estudianteid).orElse(null);
+
+        List<Calificacion> calificaciones = estudiantedao.findCalificacionListById(estudiante);
+
+        List<Calificacion> calificacionesPorCurso = new ArrayList<>();
+        
+        for (Calificacion calificacion : calificaciones) {
+            if (calificacion.getCursoID().getId().equals(cursoid)) {
+                calificacionesPorCurso.add(calificacion);
+            }
+        }
+
+        return calificacionesPorCurso;
     }
     
 }

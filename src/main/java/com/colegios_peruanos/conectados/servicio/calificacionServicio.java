@@ -6,17 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.colegios_peruanos.conectados.dao.calificacionDao;
+import com.colegios_peruanos.conectados.dao.cursoDao;
+import com.colegios_peruanos.conectados.dao.estudianteDao;
 import com.colegios_peruanos.conectados.modelos.Calificacion;
+import com.colegios_peruanos.conectados.modelos.Curso;
+import com.colegios_peruanos.conectados.modelos.Estudiante;
 
 @Component
-public class calificacionServicio implements IServicio<Calificacion>{
+public class calificacionServicio implements IServicio<Calificacion> {
 
     @Autowired
     calificacionDao calificaciondao;
 
+    @Autowired
+    estudianteDao estudianteDao;
+
+    @Autowired
+    cursoDao cursodao;
+
     @Override
     public List<Calificacion> listar() {
-        return (List<Calificacion>)calificaciondao.findAll();
+        return (List<Calificacion>) calificaciondao.findAll();
     }
 
     @Override
@@ -39,8 +49,15 @@ public class calificacionServicio implements IServicio<Calificacion>{
         return calificaciondao.findById(id).orElse(null);
     }
 
-    public List<Calificacion> calificacionEstudiante(int parseInt) {
-        return null;
+    public Calificacion buscarPorTipo(String tipo) {
+        return calificaciondao.findByTipo(tipo);
     }
-    
+
+    public Calificacion buscarPorCursoEstudiante(Integer cursoId, Integer estudianteId,String tipo) {
+
+    Curso curso=cursodao.findById(cursoId).orElse(null);
+    Estudiante estudiante=estudianteDao.findById(estudianteId).orElse(null);
+        return calificaciondao.findByCursoIDAndEstudianteIDAndTipo(curso,estudiante,tipo);
+    }
+
 }

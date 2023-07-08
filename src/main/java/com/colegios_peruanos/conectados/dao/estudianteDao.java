@@ -26,4 +26,8 @@ public interface estudianteDao extends JpaRepository<Estudiante, Integer> {
 
     @Query("SELECT c FROM Calificacion c JOIN c.estudianteID e JOIN e.cursoList cr WHERE e.gradoID = :grado AND e.seccionID = :seccion AND cr = :curso")
     List<Calificacion> findCalificacionesByGradoAndSeccionAndCurso(Grado grado, Seccion seccion, Curso curso);
+
+    @Transactional
+    List<Calificacion> findCalificacionListById(Estudiante estudiante);
+
 }
