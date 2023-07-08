@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.colegios_peruanos.conectados.dao.asistenciaDao;
 import com.colegios_peruanos.conectados.modelos.Asistencia;
-import com.colegios_peruanos.conectados.modelos.Calificacion;
 
 @Component
 public class asistenciaServicio implements IServicio<Asistencia>{

@@ -1,7 +1,9 @@
 package com.colegios_peruanos.conectados.controladores;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +62,41 @@ public class controladorEstudiante {
         return "docente/registroNotas";
     }
 
+    @GetMapping("/obtenerCalificaciones")
+    @ResponseBody
+    public Map<String, Map<String, Object>> obtenerCalificaciones(@RequestParam("gradoId") Integer gradoId,
+            @RequestParam("seccionId") Integer seccionId, @RequestParam("cursoId") Integer cursoId) {
+
+        List<Estudiante> estudiantes = estudianteservicio.buscarEstudiantesCurso(gradoId, seccionId, cursoId);
+        // Crear el diccionario
+        Map<String, Map<String, Object>> diccionarioPrincipal = new HashMap<>();
+
+        
+        for (Estudiante estudiante : estudiantes) {
+            Map<String, Object> diccionario = new HashMap<>();
+            
+            List<Calificacion> calificaciones=estudiante.getCalificacionList();
+
+            for (Calificacion calificacion : calificaciones) {
+                if(calificacion.getTipo().equals("PC1")){
+                     diccionario.put("PC1", calificacion.getValorCalificacion());
+                }
+                if(calificacion.getTipo().equals("PC2")){
+                     diccionario.put("PC2", calificacion.getValorCalificacion());
+                }
+                if(calificacion.getTipo().equals("PC3")){
+                     diccionario.put("PC3", calificacion.getValorCalificacion());
+                }
+                if(calificacion.getTipo().equals("EXFINAL")){
+                     diccionario.put("EXFINAL", calificacion.getValorCalificacion());
+                }
+            }
+            diccionarioPrincipal.put(estudiante.getId().toString(), diccionario);
+        }
+
+        return diccionarioPrincipal;
+    }
+
     @GetMapping("/obtenerSecciones")
     @ResponseBody
     public List<Seccion> obtenerSecciones(@RequestParam("gradoId") Integer gradoId) {
@@ -95,10 +132,10 @@ public class controladorEstudiante {
     @GetMapping("/obtenerEstudiantesCurso")
     @ResponseBody
     public List<Estudiante> obtenerEstudiantesPorGradoYSeccionYcurso(@RequestParam("gradoId") Integer gradoId,
-            @RequestParam("seccionId") Integer seccionId,@RequestParam("cursoId") Integer cursoId) {
+            @RequestParam("seccionId") Integer seccionId, @RequestParam("cursoId") Integer cursoId) {
 
         if (gradoId != null && seccionId != null && cursoId != null) {
-            return estudianteservicio.buscarEstudiantesCurso(gradoId,seccionId,cursoId);
+            return estudianteservicio.buscarEstudiantesCurso(gradoId, seccionId, cursoId);
         }
         return new ArrayList<>();
     }
@@ -126,7 +163,7 @@ public class controladorEstudiante {
     @ResponseBody
     public String guardarAsistencias(@RequestBody List<Map<String, Object>> mapAsistencias) {
         Date fechaAsistencia = new Date();
-        for (Map<String, Object> mapAsistencia : mapAsistencias) { 
+        for (Map<String, Object> mapAsistencia : mapAsistencias) {
 
             String estudianteID = (String) mapAsistencia.get("estudianteID"); // Cambio a String
             String estadoAsistencia = (String) mapAsistencia.get("estadoAsistencia");
@@ -159,42 +196,106 @@ public class controladorEstudiante {
 
     @PostMapping("/guardarNotasEstudiante")
     @ResponseBody
-    public String guardarNotasEstudiante(@RequestBody List<Map<String, Object>> mapAsistencias) {
-        
-        for (Map<String, Object> mapAsistencia : mapAsistencias) { 
+    public String guardarNotasEstudiante(@RequestBody List<Map<String, Object>> mapCalificaciones) {
 
-            String estudianteID = (String) mapAsistencia.get("estudianteID"); // Cambio a String
-            String PC1 = (String) mapAsistencia.get("PC1");
-            String PC2 = (String) mapAsistencia.get("PC2");
-            String PC3 = (String) mapAsistencia.get("PC3");
-            String Final = (String) mapAsistencia.get("Final");
+        for (Map<String, Object> mapCalificacion : mapCalificaciones) {
 
-            // List<Calificacion> existentes = calificacionservicio.calificacionEstudiante(Integer.parseInt(estudianteID));
-            // if (existentes != null) {
-            //     // Actualizar la asistencia existente
-            //     existentes.setEstadoAsistencia(estadoAsistencia);
-            //     existentes.setObservaciones(observaciones);
-            //     calificacionservicio.guardar(existentes);
-            // } else {
-            //     // Crear una nueva asistencia
-            //     Asistencia asistencia = new Asistencia();
-            //     asistencia.setEstadoAsistencia(estadoAsistencia);
-            //     asistencia.setObservaciones(observaciones);
-            //     asistencia.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
-            //     calificacionservicio.guardar(asistencia);
-            // }
+            String estudianteID = (String) mapCalificacion.get("estudianteID"); // Cambio a String
+            String PC1 = (String) mapCalificacion.get("PC1");
+            String PC2 = (String) mapCalificacion.get("PC2");
+            String PC3 = (String) mapCalificacion.get("PC3");
+            String Final = (String) mapCalificacion.get("Final");
+            String gradoId = (String) mapCalificacion.get("gradoId");
+            String seccionId = (String) mapCalificacion.get("seccionId");
+            String cursoId = (String) mapCalificacion.get("cursoId");
+
+            Calificacion calificacionPC1 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"PC1");
+            Calificacion calificacionPC2 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"PC2");
+            Calificacion calificacionPC3 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"PC3");
+            Calificacion calificacionFinal = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"EXFINAL");
+
+
+            if (calificacionPC1 != null) {
+                calificacionPC1.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC1)));
+                calificacionservicio.guardar(calificacionPC1);
+            } else {
+                Calificacion nuevaCalificacionPC1 = new Calificacion();
+                nuevaCalificacionPC1.setTipo("PC1");
+                nuevaCalificacionPC1.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC1)));
+                nuevaCalificacionPC1.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+                nuevaCalificacionPC1.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+                calificacionservicio.guardar(nuevaCalificacionPC1);
+            }
+
+            if (calificacionPC2 != null) {
+                calificacionPC2.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC2)));
+                calificacionservicio.guardar(calificacionPC2);
+            } else {
+                Calificacion nuevaCalificacionPC2 = new Calificacion();
+                nuevaCalificacionPC2.setTipo("PC2");
+                nuevaCalificacionPC2.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC2)));
+                nuevaCalificacionPC2.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+                nuevaCalificacionPC2.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+                calificacionservicio.guardar(nuevaCalificacionPC2);
+            }
+
+            if (calificacionPC3 != null) {
+                calificacionPC3.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC3)));
+                calificacionservicio.guardar(calificacionPC3);
+            } else {
+                Calificacion nuevaCalificacionPC3 = new Calificacion();
+                nuevaCalificacionPC3.setTipo("PC3");
+                nuevaCalificacionPC3.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC3)));
+                nuevaCalificacionPC3.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+                nuevaCalificacionPC3.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+                calificacionservicio.guardar(nuevaCalificacionPC3);
+            }
+
+            if (calificacionFinal != null) {
+                calificacionFinal.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(Final)));
+                calificacionservicio.guardar(calificacionFinal);
+            } else {
+                Calificacion nuevaCalificacionFinal = new Calificacion();
+                nuevaCalificacionFinal.setTipo("EXFINAL");
+                nuevaCalificacionFinal.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(Final)));
+                nuevaCalificacionFinal.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+                nuevaCalificacionFinal.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+                calificacionservicio.guardar(nuevaCalificacionFinal);
+            }
+
+            // Calificacion PC1_1 = new Calificacion();
+            // PC1_1.setTipo("PC1");
+            // PC1_1.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC1)));
+            // PC1_1.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+            // PC1_1.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+            // calificacionservicio.guardar(PC1_1);
+            // Calificacion PC2_2 = new Calificacion();
+            // PC2_2.setTipo("PC2");
+            // PC2_2.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC2)));
+            // PC2_2.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+            // PC2_2.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+            // calificacionservicio.guardar(PC2_2);
+            // Calificacion PC3_3 = new Calificacion();
+            // PC3_3.setTipo("PC3");
+            // PC3_3.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC3)));
+            // PC3_3.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+            // PC3_3.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+            // calificacionservicio.guardar(PC3_3);
+            // Calificacion Final_F = new Calificacion();
+            // Final_F.setTipo("EXFINAL");
+            // Final_F.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(Final)));
+            // Final_F.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
+            // Final_F.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
+            // calificacionservicio.guardar(Final_F);
+
         }
         return "Datos recibidos correctamente";
     }
-
-
-
 
     @PostMapping("/guardarNotas")
     public String guardarNotas() {
 
         return "redirect:registrarNotas";
     }
-
 
 }
