@@ -76,8 +76,8 @@ public class controllerPrincipal {
 
 		List<Curso> cursos = cursoServicio.listar();
 		model.addAttribute("cursos", cursos);
-		// List<Docente> docentes = docenteServicio.listar();
-		// model.addAttribute("docentes", docentes);
+		List<Docente> docentes = docenteServicio.listar();
+		model.addAttribute("docentes", docentes);
 		return "/asignarAula";
 	}
 
