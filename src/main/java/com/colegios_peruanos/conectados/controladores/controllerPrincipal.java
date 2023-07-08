@@ -50,6 +50,11 @@ public class controllerPrincipal {
 		return "/docente/guardarUserDocente";
 	}
 
+	@GetMapping("/asignarAula")
+	String asignarAula() {
+		return "/asignarAula";
+	}
+
 	@GetMapping("/estudiante/guardarUserEstudiante")
 	String guardarUserEstudiante() {
 		return "/estudiante/guardarUserEstudiante";
