@@ -23,6 +23,7 @@ public class AsignacionDocente implements Serializable {
     
     @Column(name = "CursoID")
     private Integer cursoID;
+
     
 }
 
