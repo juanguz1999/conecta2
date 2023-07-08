@@ -63,6 +63,10 @@
                         <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
                                 <div class="card-body">
+                                    <!-- Botón Listar Asignaciones -->
+                                    <div class="text-right mb-3">
+                                        <a href="/listarAsignaciones" class="btn btn-secondary">Listar Asignaciones</a>
+                                    </div>
                                     <!-- Formulario -->
                                     <form action="/guardarAsignacionEstudiante" method="post">
                                         <div class="form-group row">
@@ -72,7 +76,8 @@
                                                 <select name="estudiante" id="estudiantesSelect" class="form-control"
                                                     onchange="actualizarSecciones()">
                                                     <option value="">Selecciona el Alumno</option>
-                                                    <option th:each="estudiante : ${estudiantes}" th:value="${estudiante.id}">
+                                                    <option th:each="estudiante : ${estudiantes}"
+                                                        th:value="${estudiante.id}">
                                                         <span th:inline="text">[[${estudiante.id}]] -
                                                             [[${estudiante.nombre}]]</span>
                                                     </option>

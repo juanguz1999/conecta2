@@ -128,4 +128,12 @@ public class mantenimientoController {
         return "redirect:/vistaprincipal";
     }
 
+    @GetMapping("/administrarAsignacionAlumnos")
+    public String mostrarAsignacionesAlumnos(Model model, HttpServletRequest request) {
+        List<Usuario> usuarios = usuarioservicio.listar();
+        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("url", getFullUrl(request));
+        return "administrarPerfil";
+    }
+
 }
