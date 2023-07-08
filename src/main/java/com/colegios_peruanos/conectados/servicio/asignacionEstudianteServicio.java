@@ -5,40 +5,46 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import com.colegios_peruanos.conectados.dao.asignacionEstudianteDao;
 import com.colegios_peruanos.conectados.modelos.AsignacionEstudiante;
 
 @Component
-public class asignacionEstudianteServicio implements IServicio<AsignacionEstudiante> {
+public class asignacionEstudianteServicio {
 
     @Autowired
     private asignacionEstudianteDao asignacionEstudianteDao;
 
-    @Override
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public List<AsignacionEstudiante> listar() {
         return asignacionEstudianteDao.findAll();
     }
 
-    @Override
     public void guardar(AsignacionEstudiante item) {
         asignacionEstudianteDao.save(item);
     }
 
-    @Override
     public void eliminar(AsignacionEstudiante item) {
         asignacionEstudianteDao.delete(item);
     }
 
-    @Override
-    public AsignacionEstudiante buscar(AsignacionEstudiante item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscar'");
+    // Método para obtener el nombre del estudiante a partir del ID
+    public String obtenerNombreEstudiante(Integer estudianteID) {
+        Query query = entityManager.createQuery("SELECT e.nombre FROM Estudiante e WHERE e.ID = :estudianteID");
+        query.setParameter("estudianteID", estudianteID);
+        return (String) query.getSingleResult();
     }
 
-    @Override
-    public AsignacionEstudiante buscar(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscar'");
+    // Método para obtener el nombre del curso a partir del ID
+    public String obtenerNombreCurso(Integer cursoID) {
+        Query query = entityManager.createQuery("SELECT c.nombreCurso FROM Curso c WHERE c.ID = :cursoID");
+        query.setParameter("cursoID", cursoID);
+        return (String) query.getSingleResult();
     }
 
 }

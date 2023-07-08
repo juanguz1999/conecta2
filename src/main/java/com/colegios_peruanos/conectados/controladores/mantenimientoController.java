@@ -130,10 +130,11 @@ public class mantenimientoController {
 
     @GetMapping("/administrarAsignacionAlumnos")
     public String mostrarAsignacionesAlumnos(Model model, HttpServletRequest request) {
-        List<Usuario> usuarios = usuarioservicio.listar();
-        model.addAttribute("usuarios", usuarios);
+        List<AsignacionEstudiante> asignaciones = asignacionEstudianteServicio.listar(); // Obtener las asignaciones
+                                                                                         // de alumnos a cursos
+        model.addAttribute("asignaciones", asignaciones); // Agregar las asignaciones al modelo
         model.addAttribute("url", getFullUrl(request));
-        return "administrarPerfil";
+        return "administrarAsignacionAlumnos";
     }
 
 }
