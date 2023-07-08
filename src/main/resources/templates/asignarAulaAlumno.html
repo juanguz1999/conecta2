@@ -64,17 +64,17 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <!-- Formulario -->
-                                    <form action="/guardarAsignacionDocente" method="post">
+                                    <form action="/guardarAsignacionEstudiante" method="post">
                                         <div class="form-group row">
                                             <label
-                                                class="col-sm-3 col-form-label font-weight-bold text-dark">Docentes:</label>
+                                                class="col-sm-3 col-form-label font-weight-bold text-dark">Alumnos:</label>
                                             <div class="col-sm-9">
-                                                <select name="docente" id="docenteSelect" class="form-control"
+                                                <select name="estudiante" id="estudiantesSelect" class="form-control"
                                                     onchange="actualizarSecciones()">
-                                                    <option value="">Selecciona el docente</option>
-                                                    <option th:each="docente : ${docentes}" th:value="${docente.id}">
-                                                        <span th:inline="text">[[${docente.id}]] -
-                                                            [[${docente.nombreDocente}]]</span>
+                                                    <option value="">Selecciona el Alumno</option>
+                                                    <option th:each="estudiante : ${estudiantes}" th:value="${estudiante.id}">
+                                                        <span th:inline="text">[[${estudiante.id}]] -
+                                                            [[${estudiante.nombre}]]</span>
                                                     </option>
                                                 </select>
                                             </div>

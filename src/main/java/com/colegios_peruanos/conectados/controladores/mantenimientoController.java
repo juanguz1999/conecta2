@@ -109,4 +109,18 @@ public class mantenimientoController {
         return "redirect:/vistaprincipal";
     }
 
+    @PostMapping("/guardarAsignacionEstudiante")
+    public String guardarAsignacionEstudiante(@RequestParam("estudiante") Integer docenteId,
+            @RequestParam("curso") Integer cursoId) {
+        // Crear una instancia de AsignacionDocente
+        AsignacionDocente asignacionDocente = new AsignacionDocente();
+        asignacionDocente.setDocenteID(docenteId);
+        asignacionDocente.setCursoID(cursoId);
+
+        // Guardar la asignacionDocente en la base de datos
+        asignacionDocenteServicio.guardar(asignacionDocente);
+
+        return "redirect:/vistaprincipal";
+    }
+
 }
