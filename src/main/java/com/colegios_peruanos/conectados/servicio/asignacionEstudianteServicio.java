@@ -21,14 +21,12 @@ public class asignacionEstudianteServicio implements IServicio<AsignacionEstudia
 
     @Override
     public void guardar(AsignacionEstudiante item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'guardar'");
+        asignacionEstudianteDao.save(item);
     }
 
     @Override
     public void eliminar(AsignacionEstudiante item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+        asignacionEstudianteDao.delete(item);
     }
 
     @Override
