@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.colegios_peruanos.conectados.modelos.Curso;
+import com.colegios_peruanos.conectados.modelos.Docente;
 import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.servicio.gradoServicio;
 import com.colegios_peruanos.conectados.servicio.cursoServicio;
+import com.colegios_peruanos.conectados.servicio.docenteServicio;;
 
 @Controller
 public class controllerPrincipal {
@@ -20,6 +22,9 @@ public class controllerPrincipal {
 
 	@Autowired
 	private cursoServicio cursoServicio;
+
+	@Autowired
+	private docenteServicio docenteServicio;
 
 	@GetMapping("/")
 	String Index() {
@@ -71,6 +76,8 @@ public class controllerPrincipal {
 
 		List<Curso> cursos = cursoServicio.listar();
 		model.addAttribute("cursos", cursos);
+		// List<Docente> docentes = docenteServicio.listar();
+		// model.addAttribute("docentes", docentes);
 		return "/asignarAula";
 	}
 
