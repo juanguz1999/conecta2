@@ -71,14 +71,14 @@ public class controllerPrincipal {
 		return "/docente/guardarUserDocente";
 	}
 
-	@GetMapping("/asignarAula")
+	@GetMapping("/asignarAulaDocente")
 	String asignarAula(Model model) {
 
 		List<Curso> cursos = cursoServicio.listar();
 		model.addAttribute("cursos", cursos);
 		List<Docente> docentes = docenteServicio.listar();
 		model.addAttribute("docentes", docentes);
-		return "/asignarAula";
+		return "/asignarAulaDocente";
 	}
 
 	@GetMapping("/estudiante/guardarUserEstudiante")
