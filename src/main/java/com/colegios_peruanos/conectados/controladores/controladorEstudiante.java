@@ -204,7 +204,7 @@ public class controladorEstudiante {
             String PC1 = (String) mapCalificacion.get("PC1");
             String PC2 = (String) mapCalificacion.get("PC2");
             String PC3 = (String) mapCalificacion.get("PC3");
-            String Final = (String) mapCalificacion.get("Final");
+            String EXFINAL = (String) mapCalificacion.get("EXFINAL");
             String gradoId = (String) mapCalificacion.get("gradoId");
             String seccionId = (String) mapCalificacion.get("seccionId");
             String cursoId = (String) mapCalificacion.get("cursoId");
@@ -214,7 +214,7 @@ public class controladorEstudiante {
             Calificacion calificacionPC3 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"PC3");
             Calificacion calificacionFinal = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"EXFINAL");
 
-
+            
             if (calificacionPC1 != null) {
                 calificacionPC1.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC1)));
                 calificacionservicio.guardar(calificacionPC1);
@@ -252,12 +252,12 @@ public class controladorEstudiante {
             }
 
             if (calificacionFinal != null) {
-                calificacionFinal.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(Final)));
+                calificacionFinal.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(EXFINAL)));
                 calificacionservicio.guardar(calificacionFinal);
             } else {
                 Calificacion nuevaCalificacionFinal = new Calificacion();
                 nuevaCalificacionFinal.setTipo("EXFINAL");
-                nuevaCalificacionFinal.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(Final)));
+                nuevaCalificacionFinal.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(EXFINAL)));
                 nuevaCalificacionFinal.setEstudianteID(estudianteservicio.buscar(Integer.parseInt(estudianteID)));
                 nuevaCalificacionFinal.setCursoID(cursoservicio.buscar(Integer.parseInt(cursoId)));
                 calificacionservicio.guardar(nuevaCalificacionFinal);
