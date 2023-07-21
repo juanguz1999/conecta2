@@ -25,8 +25,5 @@ public class AsignacionEstudiante implements Serializable {
     @Column(name = "CursoID")
     private Integer cursoID;
 
-    public List<AsignacionEstudiante> findAll() {
-        return null;
-    }
 
 }

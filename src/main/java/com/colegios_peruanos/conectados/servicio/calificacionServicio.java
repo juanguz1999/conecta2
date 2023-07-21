@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.colegios_peruanos.conectados.dao.calificacionDao;
-import com.colegios_peruanos.conectados.dao.cursoDao;
-import com.colegios_peruanos.conectados.dao.estudianteDao;
 import com.colegios_peruanos.conectados.modelos.Calificacion;
 import com.colegios_peruanos.conectados.modelos.Curso;
 import com.colegios_peruanos.conectados.modelos.Estudiante;

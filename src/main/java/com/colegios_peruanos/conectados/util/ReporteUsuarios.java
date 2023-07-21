@@ -19,7 +19,7 @@ import java.util.Map;
 public class ReporteUsuarios extends AbstractXlsxView {
 
     @Override
-    protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
+    public void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         response.setHeader("Content-Disposition", "attachment; filename=\"reporte-usuarios.xlsx\"");
         Sheet hoja = workbook.createSheet("Reporte-usuarios");
