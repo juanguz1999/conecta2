@@ -260,6 +260,47 @@
                                 $('#asignarModal').modal('hide');
                             });
                         });
+
+                        // Función para asignar el grado y la sección al estudiante
+                        function asignarGradoSeccion() {
+                            var estudianteId = estudianteidNum;
+                            var gradoId = document.getElementById('selectGrado').value;
+                            var seccionId = document.getElementById('selectSeccion').value;
+
+                            var data = {
+                                id: estudianteId,
+                                gradoID: { id: gradoId },
+                                seccionID: { id: seccionId }
+                            };
+
+                            fetch('/guardarGradoSeccionEs', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            })
+                                .then(function (response) {
+                                    if (response.ok) {
+                                        return response.text();
+                                    } else {
+                                        throw new Error('Error en la respuesta de la solicitud AJAX');
+                                    }
+                                })
+                                .then(function (message) {
+                                    alert(message); // Mostrar mensaje de éxito o error
+                                    // Aquí puedes actualizar la tabla de estudiantes si es necesario
+                                })
+                                .catch(function (error) {
+                                    console.error(error);
+                                    alert('Error al asignar grado y sección al estudiante.');
+                                });
+                        }
+
+                        // Asignar evento de clic al botón "Guardar"
+                        document.getElementById('btnGuardarAsignacion').addEventListener('click', function () {
+                            asignarGradoSeccion();
+                        });
                     </script>
 
 
