@@ -79,14 +79,17 @@
                                         <label for="selectGrado">Seleccionar Grado:</label>
                                         <select class="form-control" id="selectGrado">
                                             <!-- Utilizar Thymeleaf para iterar sobre los grados -->
+                                            <option value=""> Seleccionar Grado</option>
                                             <option th:each="grado : ${grados}" th:value="${grado.id}"
                                                 th:text="${grado.nombreGrado}"></option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputSeccion">Sección</label>
-                                        <input type="text" class="form-control" id="inputSeccion"
-                                            placeholder="Ingrese la sección">
+                                        <label for="selectSeccion">Sección:</label>
+                                        <select class="form-control" id="selectSeccion">
+                                            <option value="">Seleccione una sección...</option>
+                                            <!-- Las secciones serán cargadas dinámicamente mediante JavaScript -->
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -193,57 +196,32 @@
                     </script>
 
                     <script>
-                        $(document).ready(function () {
-                            var estudianteId;
+                        // Obtener el elemento select de grados y secciones
+                        const selectGrado = document.getElementById("selectGrado");
+                        const selectSeccion = document.getElementById("selectSeccion");
 
-                            // Capturar datos del estudiante seleccionado cuando se abre el modal
-                            $('#asignarModal').on('show.bs.modal', function (event) {
-                                var button = $(event.relatedTarget); // Botón que abre el modal
-                                estudianteId = button.data('id'); // ID del estudiante seleccionado
+                        // Escuchar el evento de cambio en el select de grados
+                        selectGrado.addEventListener("change", function () {
+                            const selectedGradoId = this.value;
 
-                                // Aquí puedes hacer una llamada AJAX para obtener los detalles completos del estudiante según el ID, o
-                                // si ya tienes todos los datos necesarios en la tabla, simplemente asignarlos al modal.
+                            // Realizar una solicitud AJAX para obtener las secciones por el grado seleccionado
+                            fetch("/obtenerSecciones?gradoId=" + selectedGradoId)
+                                .then(response => response.json())
+                                .then(secciones => {
+                                    // Limpiar las opciones anteriores en el select de secciones
+                                    selectSeccion.innerHTML = '<option value="">Seleccionar Sección</option>';
 
-                                var estudianteNombre = button.closest('tr').find('td:eq(1)').text();
-                                var estudianteApellido = button.closest('tr').find('td:eq(2)').text();
-                                var estudianteGrado = button.closest('tr').find('td:eq(3)').text();
-                                var estudianteSeccion = button.closest('tr').find('td:eq(4)').text();
-
-                                // Asignar los datos al modal
-                                $('#estudianteId').val(estudianteId);
-                                $('#estudianteNombre').text(estudianteNombre);
-                                $('#estudianteApellido').text(estudianteApellido);
-                                $('#estudianteGrado').text(estudianteGrado);
-                                $('#estudianteSeccion').text(estudianteSeccion);
-                            });
-
-                            // Limpiar datos del estudiante cuando se cierra el modal
-                            $('#asignarModal').on('hide.bs.modal', function (event) {
-                                $('#estudianteId').val('');
-                                $('#estudianteNombre').text('');
-                                $('#estudianteApellido').text('');
-                                $('#estudianteGrado').text('');
-                                $('#estudianteSeccion').text('');
-                                $('#inputGrado').val('');
-                                $('#inputSeccion').val('');
-                            });
-
-                            // Asignar el grado y sección al estudiante cuando se haga clic en el botón "Guardar"
-                            $('#btnGuardarAsignacion').on('click', function () {
-                                var gradoAsignado = $('#inputGrado').val();
-                                var seccionAsignada = $('#inputSeccion').val();
-
-                                // Aquí puedes realizar la lógica para guardar la asignación en la base de datos o donde corresponda.
-                                // Por ejemplo, puedes hacer una llamada AJAX al servidor para guardar la asignación.
-
-                                // Luego de guardar la asignación, cierra el modal
-                                $('#asignarModal').modal('hide');
-                            });
+                                    // Agregar las nuevas opciones al select de secciones
+                                    secciones.forEach(seccion => {
+                                        const option = document.createElement("option");
+                                        option.value = seccion.id;
+                                        option.textContent = seccion.nombreSeccion;
+                                        selectSeccion.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error(error));
                         });
                     </script>
-
-
-
 
                     <!-- Content Row -->
                     <div class="row">
