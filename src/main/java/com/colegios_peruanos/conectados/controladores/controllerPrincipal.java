@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.colegios_peruanos.conectados.modelos.Curso;
 import com.colegios_peruanos.conectados.modelos.Docente;
 import com.colegios_peruanos.conectados.modelos.Estudiante;
+import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.servicio.gradoServicio;
 import com.colegios_peruanos.conectados.servicio.cursoServicio;
 import com.colegios_peruanos.conectados.servicio.docenteServicio;
@@ -17,6 +18,9 @@ import com.colegios_peruanos.conectados.servicio.estudianteServicio;
 
 @Controller
 public class controllerPrincipal {
+
+	@Autowired
+	private gradoServicio gradoservicio;
 
 	@Autowired
 	private cursoServicio cursoServicio;
@@ -103,6 +107,9 @@ public class controllerPrincipal {
 		// Obtener la lista de estudiantes desde el servicio
 		List<Estudiante> estudiantes = estudianteServicio.listar();
 		model.addAttribute("estudiantes", estudiantes);
+
+		List<Grado> grados = gradoservicio.listar();
+		model.addAttribute("grados", grados);
 
 		// Devolver el nombre de la vista que mostrará los datos
 		return "/asignarGrado";
