@@ -26,44 +26,7 @@
     <script type="module" th:src="@{/assets/js/ControlUserGoogle.js}"></script>
 
     <!-- Agrega jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script th:inline="javascript">
-        $(document).ready(function () {
-            // Filtrado de estudiantes según la opción seleccionada en el select
-            $('#filtroGradoSeccion').change(function () {
-                var filtro = $(this).val();
-                var tablaEstudiantes = $('#tablaEstudiantes');
-
-                // Limpiamos la tabla antes de agregar los datos filtrados
-                tablaEstudiantes.empty();
-
-                // Utilizar JavaScript para filtrar los estudiantes y agregarlos según el filtrado
-                var estudiantes = /*[[${estudiantes}]]*/[]; // Asegúrate de que la lista de estudiantes se esté pasando correctamente desde el controlador
-
-                estudiantes.forEach(function (estudiante) {
-                    var asignado = estudiante.gradoID != null && estudiante.seccionID != null;
-
-                    if ((filtro === 'todos') ||
-                        (filtro === 'asignados' && asignado) ||
-                        (filtro === 'noAsignados' && !asignado)) {
-                        var row = '<tr>' +
-                            '<td>' + estudiante.id + '</td>' +
-                            '<td>' + estudiante.nombre + '</td>' +
-                            '<td>' + estudiante.apellido + '</td>' +
-                            '<td>' + (estudiante.gradoID ? estudiante.gradoID.nombreGrado : 'No Asignado') + '</td>' +
-                            '<td>' + (estudiante.seccionID ? estudiante.seccionID.nombreSeccion : 'No Asignado') + '</td>' +
-                            '<td><!-- Agregar aquí el código para asignar el grado y sección a los estudiantes --></td>' +
-                            '</tr>';
-                        tablaEstudiantes.append(row);
-                    }
-                });
-            });
-
-            // Desencadenar el cambio de opción para mostrar todos los estudiantes al cargar la página
-            $('#filtroGradoSeccion').trigger('change');
-        });
-    </script>
+    <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
 
 </head>
 
@@ -105,7 +68,7 @@
                                             <option value="noAsignados">Mostrar No Asignados</option>
                                         </select>
                                     </div>
-                                    <table class="table">
+                                    <table class="table" id="tablaEstudiantes">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -118,7 +81,7 @@
                                         </thead>
                                         <tbody>
                                             <!-- Utilizar Thymeleaf para iterar sobre los estudiantes -->
-                                            <tr th:each="estudiante : ${estudiantes}">
+                                            <tr th:each="estudiante : ${estudiantes}" th:attr="data-asignado=${estudiante.gradoID != null}">
                                                 <td th:text="${estudiante.id}"></td>
                                                 <td th:text="${estudiante.nombre}"></td>
                                                 <td th:text="${estudiante.apellido}"></td>
@@ -140,25 +103,42 @@
 
                         </div>
                     </div>
+                    <script th:inline="javascript">
+                        $(document).ready(function () {
+                            $('#filtroGradoSeccion').change(function () {
+                                var filtro = $(this).val();
 
-                    <style>
-                        /* Estilos personalizados para la página */
-                        .card-header {
-                            font-size: 24px;
+                                if (filtro === 'todos') {
+                                    mostrarTodasFilas();
+                                } else if (filtro === 'asignados') {
+                                    mostrarFilasAsignadas();
+                                } else if (filtro === 'noAsignados') {
+                                    mostrarFilasNoAsignados();
+                                }
+                            });
+
+                            $('#filtroGradoSeccion').trigger('change');
+                        });
+
+                        function mostrarTodasFilas() {
+                            $('#tablaEstudiantes tbody tr').show();
                         }
 
-                        .card-body h4 {
-                            font-size: 20px;
+                        function mostrarFilasAsignadas() {
+                            $('#tablaEstudiantes tbody tr').hide();
+                            $('#tablaEstudiantes tbody tr[data-asignado="true"]').show();
                         }
 
-                        .btn {
-                            font-size: 16px;
-                            padding: 10px 20px;
+                        function mostrarFilasNoAsignados() {
+                            $('#tablaEstudiantes tbody tr').hide();
+                            $('#tablaEstudiantes tbody tr[data-asignado="false"]').show();
+                            $('#tablaEstudiantes tbody tr[data-asignado="false"]').find('td:eq(3):contains("No Asignado")').parent().show();
                         }
-                    </style>
 
-
-
+                        $('#filtroGradoSeccion').on('change', function () {
+                            $('select').not(this).prop('selectedIndex', 0);
+                        });
+                    </script>
 
 
 
@@ -200,7 +180,7 @@
 
 
         <!-- Bootstrap core JavaScript-->
-        <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+
         <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
         <!-- Core plugin JavaScript-->
