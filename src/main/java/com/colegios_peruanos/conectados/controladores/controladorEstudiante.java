@@ -282,22 +282,27 @@ public class controladorEstudiante {
     }
 
     @PostMapping("/guardarGradoSeccionEs")
-    public ResponseEntity<String> guardarGradoSeccionEs(@RequestBody Estudiante request) {
-        int estudianteId = request.getId();
-        int gradoId = request.getGradoID().getId();
-        int seccionId = request.getSeccionID().getId();
+    public ResponseEntity<String> guardarGradoSeccionEs(@RequestParam("estudianteId") Integer estudianteId,
+            @RequestParam("gradoId") Integer gradoId,
+            @RequestParam("seccionId") Integer seccionId) {
+        try {
+            Estudiante estudiante = estudianteservicio.buscar(estudianteId);
+            Grado grado = gradoservicio.buscar(gradoId);
+            Seccion seccion = seccionservicio.buscar(seccionId);
 
-        Estudiante estudiante = estudianteservicio.buscar(estudianteId);
-        Grado grado = gradoservicio.buscar(gradoId);
-        Seccion seccion = seccionservicio.buscar(seccionId);
-
-        if (estudiante != null && grado != null && seccion != null) {
-            estudiante.setGradoID(grado);
-            estudiante.setSeccionID(seccion);
-            estudianteservicio.guardar(estudiante);
-            return ResponseEntity.ok("Grado y sección asignados correctamente al estudiante.");
-        } else {
-            return ResponseEntity.badRequest().body("Error al asignar grado y sección al estudiante.");
+            if (estudiante != null && grado != null && seccion != null) {
+                estudiante.setGradoID(grado);
+                estudiante.setSeccionID(seccion);
+                estudianteservicio.guardar(estudiante);
+                return ResponseEntity.ok("Grado y sección asignados correctamente al estudiante.");
+            } else {
+                return ResponseEntity.badRequest()
+                        .body("No se encontró el estudiante, grado o sección. Verifica los IDs proporcionados.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error interno del servidor al asignar grado y sección al estudiante.");
         }
     }
 

@@ -55,6 +55,7 @@
                     <!--Contenido-->
 
                     <!-- Modal para asignar grado y sección -->
+                    <!-- Modal para asignar grado y sección -->
                     <div class="modal fade" id="asignarModal" tabindex="-1" role="dialog"
                         aria-labelledby="asignarModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -66,34 +67,35 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- Datos del estudiante a asignar -->
-                                    <input type="hidden" id="estudianteId">
-                                    <p><strong>Nombre:</strong> <span id="estudianteNombre"></span></p>
-                                    <p><strong>Apellido:</strong> <span id="estudianteApellido"></span></p>
+                                    <form id="miFormulario" action="/guardarGradoSeccionEs" method="post">
+                                        <!-- Datos del estudiante a asignar -->
+                                        <input type="hidden" name="estudianteId" id="estudianteId" value="4">
+                                        <p><strong>Nombre:</strong> <span id="estudianteNombre"></span></p>
+                                        <p><strong>Apellido:</strong> <span id="estudianteApellido"></span></p>
 
-                                    <!-- Campos para asignar grado y sección al estudiante -->
-                                    <div class="form-group">
-                                        <label for="selectGrado">Seleccionar Grado:</label>
-                                        <select class="form-control" id="selectGrado">
-                                            <!-- Utilizar Thymeleaf para iterar sobre los grados -->
-                                            <option value=""> Seleccionar Grado</option>
-                                            <option th:each="grado : ${grados}" th:value="${grado.id}"
-                                                th:text="${grado.nombreGrado}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="selectSeccion">Sección:</label>
-                                        <select class="form-control" id="selectSeccion">
-                                            <option value="">Seleccione una sección...</option>
-                                            <!-- Las secciones serán cargadas dinámicamente mediante JavaScript -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary"
-                                        id="btnGuardarAsignacion">Guardar</button>
+                                        <!-- Campos para asignar grado y sección al estudiante -->
+                                        <div class="form-group">
+                                            <label for="selectGrado">Seleccionar Grado:</label>
+                                            <select class="form-control" name="gradoID" id="selectGrado">
+                                                <!-- Utilizar Thymeleaf para iterar sobre los grados -->
+                                                <option value="">Seleccionar Grado</option>
+                                                <option th:each="grado : ${grados}" th:value="${grado.id}"
+                                                    th:text="${grado.nombreGrado}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="selectSeccion">Sección:</label>
+                                            <select class="form-control" name="seccionID" id="selectSeccion">
+                                                <option value="">Seleccione una sección...</option>
+                                                <!-- Las secciones serán cargadas dinámicamente mediante JavaScript -->
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -262,45 +264,9 @@
                         });
 
                         // Función para asignar el grado y la sección al estudiante
-                        function asignarGradoSeccion() {
-                            var estudianteId = document.getElementById('estudianteId').value;
-                            var gradoId = document.getElementById('selectGrado').value;
-                            var seccionId = document.getElementById('selectSeccion').value;
+                        // Función para asignar el grado y la sección al estudiante
 
-                            var data = {
-                                id: estudianteId,
-                                gradoID: { id: gradoId },
-                                seccionID: { id: seccionId }
-                            };
 
-                            fetch('/guardarGradoSeccionEs', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(data)
-                            })
-                                .then(function (response) {
-                                    if (response.ok) {
-                                        return response.text();
-                                    } else {
-                                        throw new Error('Error en la respuesta de la solicitud AJAX');
-                                    }
-                                })
-                                .then(function (message) {
-                                    alert(message); // Mostrar mensaje de éxito o error
-                                    // Aquí puedes actualizar la tabla de estudiantes si es necesario
-                                })
-                                .catch(function (error) {
-                                    console.error(error);
-                                    alert('Error al asignar grado y sección al estudiante.');
-                                });
-                        }
-
-                        // Asignar evento de clic al botón "Guardar"
-                        document.getElementById('btnGuardarAsignacion').addEventListener('click', function () {
-                            asignarGradoSeccion();
-                        });
                     </script>
 
 
