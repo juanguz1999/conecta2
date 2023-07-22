@@ -210,7 +210,7 @@
 
                                 // Asignar los datos al modal
                                 console.log(estudianteidNum);
-                                $('#estudianteId').val(estudianteId);
+                                $('#estudianteId').val(estudianteidNum);
                                 $('#estudianteNombre').text(estudianteNombre);
                                 $('#estudianteApellido').text(estudianteApellido);
                             });
@@ -263,7 +263,7 @@
 
                         // Función para asignar el grado y la sección al estudiante
                         function asignarGradoSeccion() {
-                            var estudianteId = estudianteidNum;
+                            var estudianteId = document.getElementById('estudianteId').value;
                             var gradoId = document.getElementById('selectGrado').value;
                             var seccionId = document.getElementById('selectSeccion').value;
 
