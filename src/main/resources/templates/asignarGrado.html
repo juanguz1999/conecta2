@@ -81,7 +81,8 @@
                                         </thead>
                                         <tbody>
                                             <!-- Utilizar Thymeleaf para iterar sobre los estudiantes -->
-                                            <tr th:each="estudiante : ${estudiantes}" th:attr="data-asignado=${estudiante.gradoID != null}">
+                                            <tr th:each="estudiante : ${estudiantes}"
+                                                th:attr="data-asignado=${estudiante.gradoID != null}">
                                                 <td th:text="${estudiante.id}"></td>
                                                 <td th:text="${estudiante.nombre}"></td>
                                                 <td th:text="${estudiante.apellido}"></td>
@@ -94,6 +95,11 @@
                                                     <span th:if="${estudiante.seccionID != null}"
                                                         th:text="${estudiante.seccionID.nombreSeccion}"></span>
                                                     <span th:unless="${estudiante.seccionID != null}">No Asignado</span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-primary"
+                                                        th:if="${estudiante.gradoID == null}" th:text="Asignar">Asignar
+                                                    </button>
                                                 </td>
                                             </tr>
                                         </tbody>
