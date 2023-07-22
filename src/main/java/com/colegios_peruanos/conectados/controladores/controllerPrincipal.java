@@ -99,20 +99,13 @@ public class controllerPrincipal {
 	}
 
 	@GetMapping("/asignarGrado")
-	String asignarGrado() {
-		return "/asignarGrado";
-	}
-
-	@GetMapping("/listarEstudiantes")
-	public String listarEstudiantes(Model model) {
+	public String asignarGrado(Model model) {
 		// Obtener la lista de estudiantes desde el servicio
 		List<Estudiante> estudiantes = estudianteServicio.listar();
-
-		// Agregar la lista de estudiantes al modelo para que sea accesible en la vista
 		model.addAttribute("estudiantes", estudiantes);
 
 		// Devolver el nombre de la vista que mostrará los datos
-		return "lista_estudiantes"; // Nombre de la vista, por ejemplo, "lista_estudiantes.html"
+		return "/asignarGrado";
 	}
 
 }
