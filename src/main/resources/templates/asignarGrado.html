@@ -25,6 +25,46 @@
     <!--Google-->
     <script type="module" th:src="@{/assets/js/ControlUserGoogle.js}"></script>
 
+    <!-- Agrega jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            // Filtrado de estudiantes según la opción seleccionada en el select
+            $('#filtroGradoSeccion').change(function () {
+                var filtro = $(this).val();
+                var tablaEstudiantes = $('#tablaEstudiantes');
+
+                // Limpiamos la tabla antes de agregar los datos filtrados
+                tablaEstudiantes.empty();
+
+                // Utilizar JavaScript para filtrar los estudiantes y agregarlos según el filtrado
+                var estudiantes = /*[[${estudiantes}]]*/[]; // Asegúrate de que la lista de estudiantes se esté pasando correctamente desde el controlador
+
+                estudiantes.forEach(function (estudiante) {
+                    var asignado = estudiante.gradoID != null && estudiante.seccionID != null;
+
+                    if ((filtro === 'todos') ||
+                        (filtro === 'asignados' && asignado) ||
+                        (filtro === 'noAsignados' && !asignado)) {
+                        var row = '<tr>' +
+                            '<td>' + estudiante.id + '</td>' +
+                            '<td>' + estudiante.nombre + '</td>' +
+                            '<td>' + estudiante.apellido + '</td>' +
+                            '<td>' + (estudiante.gradoID ? estudiante.gradoID.nombreGrado : 'No Asignado') + '</td>' +
+                            '<td>' + (estudiante.seccionID ? estudiante.seccionID.nombreSeccion : 'No Asignado') + '</td>' +
+                            '<td><!-- Agregar aquí el código para asignar el grado y sección a los estudiantes --></td>' +
+                            '</tr>';
+                        tablaEstudiantes.append(row);
+                    }
+                });
+            });
+
+            // Desencadenar el cambio de opción para mostrar todos los estudiantes al cargar la página
+            $('#filtroGradoSeccion').trigger('change');
+        });
+    </script>
+
 </head>
 
 <body id="page-top">
@@ -57,6 +97,14 @@
                             <div class="card shadow rounded-lg">
                                 <h4 class="card-header bg-primary text-white">Lista de Estudiantes</h4>
                                 <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="filtroGradoSeccion">Filtrar por:</label>
+                                        <select class="form-control" id="filtroGradoSeccion">
+                                            <option value="todos">Mostrar Todos</option>
+                                            <option value="asignados">Mostrar Asignados</option>
+                                            <option value="noAsignados">Mostrar No Asignados</option>
+                                        </select>
+                                    </div>
                                     <table class="table">
                                         <thead>
                                             <tr>
