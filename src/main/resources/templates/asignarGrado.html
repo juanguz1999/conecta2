@@ -54,6 +54,48 @@
 
                     <!--Contenido-->
 
+                    <!-- Modal para asignar grado y sección -->
+                    <!-- Modal para asignar grado y sección -->
+                    <div class="modal fade" id="asignarModal" tabindex="-1" role="dialog"
+                        aria-labelledby="asignarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="asignarModalLabel">Asignar Grado y Sección</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Datos del estudiante a asignar -->
+                                    <input type="hidden" id="estudianteId">
+                                    <p><strong>Nombre:</strong> <span id="estudianteNombre"></span></p>
+                                    <p><strong>Apellido:</strong> <span id="estudianteApellido"></span></p>
+                                    <p><strong>Grado:</strong> <span id="estudianteGrado"></span></p>
+                                    <p><strong>Sección:</strong> <span id="estudianteSeccion"></span></p>
+
+                                    <!-- Campos para asignar grado y sección al estudiante -->
+                                    <div class="form-group">
+                                        <label for="inputGrado">Grado</label>
+                                        <input type="text" class="form-control" id="inputGrado"
+                                            placeholder="Ingrese el grado">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputSeccion">Sección</label>
+                                        <input type="text" class="form-control" id="inputSeccion"
+                                            placeholder="Ingrese la sección">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary"
+                                        id="btnGuardarAsignacion">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
@@ -98,8 +140,9 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-primary"
-                                                        th:if="${estudiante.gradoID == null}" th:text="Asignar">Asignar
-                                                    </button>
+                                                        th:if="${estudiante.gradoID == null}" data-toggle="modal"
+                                                        data-target="#asignarModal"
+                                                        data-id="${estudiante.id}">Asignar</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -145,6 +188,57 @@
                             $('select').not(this).prop('selectedIndex', 0);
                         });
                     </script>
+
+                    <script>
+                        $(document).ready(function () {
+                            var estudianteId;
+
+                            // Capturar datos del estudiante seleccionado cuando se abre el modal
+                            $('#asignarModal').on('show.bs.modal', function (event) {
+                                var button = $(event.relatedTarget); // Botón que abre el modal
+                                estudianteId = button.data('id'); // ID del estudiante seleccionado
+
+                                // Aquí puedes hacer una llamada AJAX para obtener los detalles completos del estudiante según el ID, o
+                                // si ya tienes todos los datos necesarios en la tabla, simplemente asignarlos al modal.
+
+                                var estudianteNombre = button.closest('tr').find('td:eq(1)').text();
+                                var estudianteApellido = button.closest('tr').find('td:eq(2)').text();
+                                var estudianteGrado = button.closest('tr').find('td:eq(3)').text();
+                                var estudianteSeccion = button.closest('tr').find('td:eq(4)').text();
+
+                                // Asignar los datos al modal
+                                $('#estudianteId').val(estudianteId);
+                                $('#estudianteNombre').text(estudianteNombre);
+                                $('#estudianteApellido').text(estudianteApellido);
+                                $('#estudianteGrado').text(estudianteGrado);
+                                $('#estudianteSeccion').text(estudianteSeccion);
+                            });
+
+                            // Limpiar datos del estudiante cuando se cierra el modal
+                            $('#asignarModal').on('hide.bs.modal', function (event) {
+                                $('#estudianteId').val('');
+                                $('#estudianteNombre').text('');
+                                $('#estudianteApellido').text('');
+                                $('#estudianteGrado').text('');
+                                $('#estudianteSeccion').text('');
+                                $('#inputGrado').val('');
+                                $('#inputSeccion').val('');
+                            });
+
+                            // Asignar el grado y sección al estudiante cuando se haga clic en el botón "Guardar"
+                            $('#btnGuardarAsignacion').on('click', function () {
+                                var gradoAsignado = $('#inputGrado').val();
+                                var seccionAsignada = $('#inputSeccion').val();
+
+                                // Aquí puedes realizar la lógica para guardar la asignación en la base de datos o donde corresponda.
+                                // Por ejemplo, puedes hacer una llamada AJAX al servidor para guardar la asignación.
+
+                                // Luego de guardar la asignación, cierra el modal
+                                $('#asignarModal').modal('hide');
+                            });
+                        });
+                    </script>
+
 
 
 
