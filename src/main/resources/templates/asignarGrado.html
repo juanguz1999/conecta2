@@ -63,9 +63,9 @@
                                                 <th>ID</th>
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
-                                                <th>GradoID</th>
-                                                <th>SeccionID</th>
-                                                <th>UsuarioID</th>
+                                                <th>Grado</th>
+                                                <th>Seccion</th>
+                                                <th>Asignar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,10 +74,16 @@
                                                 <td th:text="${estudiante.id}"></td>
                                                 <td th:text="${estudiante.nombre}"></td>
                                                 <td th:text="${estudiante.apellido}"></td>
-                                                <td th:text="${estudiante.gradoID.nombreGrado}"></td>
-                                                <td th:text="${estudiante.seccionID.nombreSeccion}"></td>
-
-
+                                                <td>
+                                                    <span th:if="${estudiante.gradoID != null}"
+                                                        th:text="${estudiante.gradoID.nombreGrado}"></span>
+                                                    <span th:unless="${estudiante.gradoID != null}">No Asignado</span>
+                                                </td>
+                                                <td>
+                                                    <span th:if="${estudiante.seccionID != null}"
+                                                        th:text="${estudiante.seccionID.nombreSeccion}"></span>
+                                                    <span th:unless="${estudiante.seccionID != null}">No Asignado</span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
