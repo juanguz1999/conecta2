@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
 import com.colegios_peruanos.conectados.modelos.Asistencia;
@@ -282,7 +283,7 @@ public class controladorEstudiante {
     }
 
     @PostMapping("/guardarGradoSeccionEs")
-    public ResponseEntity<String> guardarGradoSeccionEs(@RequestParam("estudianteId") Integer estudianteId,
+    public RedirectView guardarGradoSeccionEs(@RequestParam("estudianteId") Integer estudianteId,
             @RequestParam("gradoId") Integer gradoId,
             @RequestParam("seccionId") Integer seccionId) {
         try {
@@ -294,15 +295,17 @@ public class controladorEstudiante {
                 estudiante.setGradoID(grado);
                 estudiante.setSeccionID(seccion);
                 estudianteservicio.guardar(estudiante);
-                return ResponseEntity.ok("Grado y sección asignados correctamente al estudiante.");
+
+                // Redirige a la vista deseada, por ejemplo, "vista-exito.html"
+                return new RedirectView("/asignarGrado");
             } else {
-                return ResponseEntity.badRequest()
-                        .body("No se encontró el estudiante, grado o sección. Verifica los IDs proporcionados.");
+                // Si no se encontró algún elemento, redirige a una vista de error
+                return new RedirectView("/vista-error.html");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error interno del servidor al asignar grado y sección al estudiante.");
+            // En caso de error, redirige a una vista de error
+            return new RedirectView("/vista-error.html");
         }
     }
 
