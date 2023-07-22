@@ -51,54 +51,31 @@
 
                     <!--Contenido-->
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Conectados</h1>
-                    </div>
 
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div class="card shadow rounded-lg">
-                                <h4 class="card-header bg-primary text-white">Bienvenido a la plataforma Contecta2</h4>
+                                <h4 class="card-header bg-primary text-white">Lista de Estudiantes</h4>
                                 <div class="card-body">
-                                    <h4 class="mb-4">Elija las opciones en el tablero o barra de opciones</h4>
-                                    <div class="mt-4 d-flex justify-content-center flex-wrap">
-                                        <a href="/mantenimiento" class="btn btn-primary btn-lg m-2"
-                                            style="background-color: #f7d7d7; color: #b23a38;">
-                                            <i class="fas fa-tools fa-lg text-white mr-2"></i>
-                                            Programar mantenimiento
-                                        </a>
-                                        <a href="/registrarEstudiante" class="btn btn-primary btn-lg m-2"
-                                            style="background-color: #f5e1d2; color: #c67b5b;">
-                                            <i class="fas fa-user-plus fa-lg text-white mr-2"></i>
-                                            Registrar Asistencia
-                                        </a>
-                                        <a href="/administrarPerfiles" class="btn btn-primary btn-lg m-2"
-                                            style="background-color: #ece6f3; color: #7f68a1;">
-                                            <i class="fas fa-cog fa-lg text-white mr-2"></i>
-                                            Administrar Perfiles
-                                        </a>
-                                        <a href="/asignarGrado" class="btn btn-primary btn-lg m-2"
-                                            style="background-color: #ece6f3; color: #7f68a1;">
-                                            <i class="fas fa-cog fa-lg text-white mr-2"></i>
-                                            Asignar Grado - Alumno
-                                        </a>
-                                        <a href="/asignarAulaDocente" class="btn btn-primary btn-lg m-2"
-                                            style="background-color: #e5eaf2; color: #647aa3;">
-                                            <i class="fas fa-chalkboard fa-lg text-white mr-2"></i>
-                                            Asignar Curso - Docente
-                                        </a>
-                                        <a href="/asignarAulaAlumno" class="btn btn-primary btn-lg m-2"
-                                            style="background-color: #e5eaf2; color: #647aa3;">
-                                            <i class="fas fa-chalkboard fa-lg text-white mr-2"></i>
-                                            Asignar Curso - Alumno
-                                        </a>
-                                        <a href="/registrarNotas" class="btn btn-primary btn-lg m-2"
-                                            style="background-color: #e5eaf2; color: #647aa3;">
-                                            <i class="fas fa-chalkboard-teacher fa-lg text-white mr-2"></i>
-                                            Registrar notas
-                                        </a>
-                                    </div>
+                                    <table class="table">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>GradoID</th>
+                                            <th>SeccionID</th>
+                                            <th>UsuarioID</th>
+                                        </tr>
+                                        <!-- Utilizar Thymeleaf para iterar sobre los estudiantes -->
+                                        <tr th:each="estudiante : ${estudiantes}">
+                                            <td th:text="${estudiante.id}"></td>
+                                            <td th:text="${estudiante.nombre}"></td>
+                                            <td th:text="${estudiante.apellido}"></td>
+                                            <td th:text="${estudiante.gradoID}"></td>
+                                            <td th:text="${estudiante.seccionID}"></td>
+                                            <td th:text="${estudiante.usuarioID}"></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
