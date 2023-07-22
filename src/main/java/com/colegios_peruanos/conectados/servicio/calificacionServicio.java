@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.colegios_peruanos.conectados.dao.calificacionDao;
-import com.colegios_peruanos.conectados.dao.cursoDao;
-import com.colegios_peruanos.conectados.dao.estudianteDao;
 import com.colegios_peruanos.conectados.modelos.Calificacion;
 import com.colegios_peruanos.conectados.modelos.Curso;
 import com.colegios_peruanos.conectados.modelos.Estudiante;
@@ -19,10 +17,10 @@ public class calificacionServicio implements IServicio<Calificacion> {
     calificacionDao calificaciondao;
 
     @Autowired
-    estudianteDao estudianteDao;
+    estudianteServicio estudianteservicio;
 
     @Autowired
-    cursoDao cursodao;
+    cursoServicio cursoservicio;
 
     @Override
     public List<Calificacion> listar() {
@@ -53,11 +51,11 @@ public class calificacionServicio implements IServicio<Calificacion> {
         return calificaciondao.findByTipo(tipo);
     }
 
-    public Calificacion buscarPorCursoEstudiante(Integer cursoId, Integer estudianteId,String tipo) {
+    public Calificacion buscarPorCursoEstudiante(Integer cursoId, Integer estudianteId, String tipo) {
 
-    Curso curso=cursodao.findById(cursoId).orElse(null);
-    Estudiante estudiante=estudianteDao.findById(estudianteId).orElse(null);
-        return calificaciondao.findByCursoIDAndEstudianteIDAndTipo(curso,estudiante,tipo);
+        Curso curso = cursoservicio.buscar(cursoId);
+        Estudiante estudiante = estudianteservicio.buscar(estudianteId);
+        return calificaciondao.findByCursoIDAndEstudianteIDAndTipo(curso, estudiante, tipo);
     }
 
 }

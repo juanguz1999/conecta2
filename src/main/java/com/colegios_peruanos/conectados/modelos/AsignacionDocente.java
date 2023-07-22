@@ -15,7 +15,7 @@ public class AsignacionDocente implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "ID") 
     private Integer id;
     
     @Column(name = "docenteID")

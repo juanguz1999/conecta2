@@ -155,7 +155,7 @@ function notasEstudiantes() {
                 var FINALCelda = document.createElement('td');
                 var selectFINAL = document.createElement('select');
                 selectFINAL.setAttribute('class', 'form-control');
-                selectFINAL.setAttribute('name', 'Final');
+                selectFINAL.setAttribute('name', 'EXFINAL');
                 selectFINAL.setAttribute('data-estudiante-id', estudiante.id); // Atributo personalizado para guardar el ID del estudiante
 
                 for (let i = 0; i <= 20; i++) {
@@ -217,7 +217,7 @@ function notasEstudiantes() {
 
                             var exfinal = calificacion["EXFINAL"];
 
-                            var select = document.querySelector('select[data-estudiante-id="' + key + '"][name="Final"]');
+                            var select = document.querySelector('select[data-estudiante-id="' + key + '"][name="EXFINAL"]');
                             if (select) {
                                 select.value = exfinal.toString();
                             }
@@ -245,9 +245,9 @@ function guardarNotas() {
         var PC1 = fila.querySelector('select[name="PC1"]').value;
         var PC2 = fila.querySelector('select[name="PC2"]').value;
         var PC3 = fila.querySelector('select[name="PC3"]').value;
-        var Final = fila.querySelector('select[name="Final"]').value;
+        var EXFINAL = fila.querySelector('select[name="EXFINAL"]').value;
 
-        return { estudianteID, PC1, PC2, PC3, Final, gradoId, seccionId, cursoId };
+        return {estudianteID, PC1, PC2, PC3, EXFINAL, gradoId, seccionId, cursoId };
     });
 
     // Enviar los datos de asistencia al servidor

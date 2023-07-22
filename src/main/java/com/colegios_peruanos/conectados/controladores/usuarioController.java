@@ -43,7 +43,7 @@ public class usuarioController {
         Usuario usuarioExistente = usuarioservicio.buscarPorCorreo(email);
         System.out.println("--------------" + email);
         if (usuarioExistente == null) {
-            return "redirect:/docente/guardarUserDocente";
+            return "redirect:/docente/gua rdarUserDocente";
         } else {
             return "redirect:/vistaprincipal";
         }

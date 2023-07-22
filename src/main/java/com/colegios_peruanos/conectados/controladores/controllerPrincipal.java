@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.colegios_peruanos.conectados.modelos.Curso;
 import com.colegios_peruanos.conectados.modelos.Docente;
 import com.colegios_peruanos.conectados.modelos.Estudiante;
-import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.servicio.gradoServicio;
 import com.colegios_peruanos.conectados.servicio.cursoServicio;
 import com.colegios_peruanos.conectados.servicio.docenteServicio;
@@ -18,9 +17,6 @@ import com.colegios_peruanos.conectados.servicio.estudianteServicio;
 
 @Controller
 public class controllerPrincipal {
-
-	@Autowired
-	private gradoServicio gradoservicio;
 
 	@Autowired
 	private cursoServicio cursoServicio;

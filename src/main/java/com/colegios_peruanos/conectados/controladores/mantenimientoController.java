@@ -36,7 +36,7 @@ public class mantenimientoController {
     private asignacionEstudianteServicio asignacionEstudianteServicio;
 
     @GetMapping("/mantenimiento")
-    String ListaMantenimiento(Model model, HttpServletRequest request) {
+    public String ListaMantenimiento(Model model, HttpServletRequest request) {
 
         List<Mantenimiento> operaciones = mantServ.listar();
         model.addAttribute("operaciones", operaciones);
@@ -65,7 +65,7 @@ public class mantenimientoController {
     }
 
     @PostMapping("/guardarMantenimiento")
-    String guardarMantenimiento(Mantenimiento mantenimiento) {
+    public String guardarMantenimiento(Mantenimiento mantenimiento) {
 
         if (mantenimiento.getId() == null) {
             mantenimiento.setId(0);

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.colegios_peruanos.conectados.dao.cursoDao;
 import com.colegios_peruanos.conectados.modelos.Curso;
-import com.colegios_peruanos.conectados.modelos.Docente;
 import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.modelos.Seccion;
 

@@ -47,6 +47,4 @@ public class usuarioServicio implements IServicio<Usuario>{
         return usuariodao.findByCorreoElectronico(correoElectronico);
     }
     
-
-
 }
