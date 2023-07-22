@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,7 @@ import com.colegios_peruanos.conectados.modelos.Estudiante;
 import com.colegios_peruanos.conectados.modelos.Grado;
 import com.colegios_peruanos.conectados.modelos.Seccion;
 import com.colegios_peruanos.conectados.servicio.asistenciaServicio;
+import com.colegios_peruanos.conectados.servicio.seccionServicio;
 import com.colegios_peruanos.conectados.servicio.calificacionServicio;
 import com.colegios_peruanos.conectados.servicio.cursoServicio;
 import com.colegios_peruanos.conectados.servicio.estudianteServicio;
@@ -45,6 +48,9 @@ public class controladorEstudiante {
 
     @Autowired
     private calificacionServicio calificacionservicio;
+
+    @Autowired
+    private seccionServicio seccionservicio;
 
     @GetMapping("/registrarEstudiante")
     String registroEstudiante(Model model) {
@@ -71,24 +77,23 @@ public class controladorEstudiante {
         // Crear el diccionario
         Map<String, Map<String, Object>> diccionarioPrincipal = new HashMap<>();
 
-        
         for (Estudiante estudiante : estudiantes) {
             Map<String, Object> diccionario = new HashMap<>();
-            
-            List<Calificacion> calificaciones=estudiante.getCalificacionList();
+
+            List<Calificacion> calificaciones = estudiante.getCalificacionList();
 
             for (Calificacion calificacion : calificaciones) {
-                if(calificacion.getTipo().equals("PC1")){
-                     diccionario.put("PC1", calificacion.getValorCalificacion());
+                if (calificacion.getTipo().equals("PC1")) {
+                    diccionario.put("PC1", calificacion.getValorCalificacion());
                 }
-                if(calificacion.getTipo().equals("PC2")){
-                     diccionario.put("PC2", calificacion.getValorCalificacion());
+                if (calificacion.getTipo().equals("PC2")) {
+                    diccionario.put("PC2", calificacion.getValorCalificacion());
                 }
-                if(calificacion.getTipo().equals("PC3")){
-                     diccionario.put("PC3", calificacion.getValorCalificacion());
+                if (calificacion.getTipo().equals("PC3")) {
+                    diccionario.put("PC3", calificacion.getValorCalificacion());
                 }
-                if(calificacion.getTipo().equals("EXFINAL")){
-                     diccionario.put("EXFINAL", calificacion.getValorCalificacion());
+                if (calificacion.getTipo().equals("EXFINAL")) {
+                    diccionario.put("EXFINAL", calificacion.getValorCalificacion());
                 }
             }
             diccionarioPrincipal.put(estudiante.getId().toString(), diccionario);
@@ -209,12 +214,15 @@ public class controladorEstudiante {
             String seccionId = (String) mapCalificacion.get("seccionId");
             String cursoId = (String) mapCalificacion.get("cursoId");
 
-            Calificacion calificacionPC1 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"PC1");
-            Calificacion calificacionPC2 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"PC2");
-            Calificacion calificacionPC3 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"PC3");
-            Calificacion calificacionFinal = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),Integer.parseInt(estudianteID),"EXFINAL");
+            Calificacion calificacionPC1 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),
+                    Integer.parseInt(estudianteID), "PC1");
+            Calificacion calificacionPC2 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),
+                    Integer.parseInt(estudianteID), "PC2");
+            Calificacion calificacionPC3 = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),
+                    Integer.parseInt(estudianteID), "PC3");
+            Calificacion calificacionFinal = calificacionservicio.buscarPorCursoEstudiante(Integer.parseInt(cursoId),
+                    Integer.parseInt(estudianteID), "EXFINAL");
 
-            
             if (calificacionPC1 != null) {
                 calificacionPC1.setValorCalificacion(BigDecimal.valueOf(Double.parseDouble(PC1)));
                 calificacionservicio.guardar(calificacionPC1);
@@ -271,6 +279,26 @@ public class controladorEstudiante {
     public String guardarNotas() {
 
         return "redirect:registrarNotas";
+    }
+
+    @PostMapping("/guardarGradoSeccionEs")
+    public ResponseEntity<String> guardarGradoSeccionEs(@RequestBody Estudiante request) {
+        int estudianteId = request.getId();
+        int gradoId = request.getGradoID().getId();
+        int seccionId = request.getSeccionID().getId();
+
+        Estudiante estudiante = estudianteservicio.buscar(estudianteId);
+        Grado grado = gradoservicio.buscar(gradoId);
+        Seccion seccion = seccionservicio.buscar(seccionId);
+
+        if (estudiante != null && grado != null && seccion != null) {
+            estudiante.setGradoID(grado);
+            estudiante.setSeccionID(seccion);
+            estudianteservicio.guardar(estudiante);
+            return ResponseEntity.ok("Grado y sección asignados correctamente al estudiante.");
+        } else {
+            return ResponseEntity.badRequest().body("Error al asignar grado y sección al estudiante.");
+        }
     }
 
 }
