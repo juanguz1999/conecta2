@@ -76,7 +76,7 @@
                                         <!-- Campos para asignar grado y sección al estudiante -->
                                         <div class="form-group">
                                             <label for="selectGrado">Seleccionar Grado:</label>
-                                            <select class="form-control" name="gradoID" id="selectGrado">
+                                            <select class="form-control" name="gradoId" id="selectGrado">
                                                 <!-- Utilizar Thymeleaf para iterar sobre los grados -->
                                                 <option value="">Seleccionar Grado</option>
                                                 <option th:each="grado : ${grados}" th:value="${grado.id}"
@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="selectSeccion">Sección:</label>
-                                            <select class="form-control" name="seccionID" id="selectSeccion">
+                                            <select class="form-control" name="seccionId" id="selectSeccion">
                                                 <option value="">Seleccione una sección...</option>
                                                 <!-- Las secciones serán cargadas dinámicamente mediante JavaScript -->
                                             </select>
